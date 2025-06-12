@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mYf-u3-Ycf">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Past Order View Controller-->
+        <scene sceneID="bVq-HX-g1B">
+            <objects>
+                <viewController storyboardIdentifier="PastOrderViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="mYf-u3-Ycf" customClass="PastOrderViewController" customModule="GoferHandy" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qhT-WR-iyP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background_new" translatesAutoresizingMaskIntoConstraints="NO" id="SfK-Pz-NNl">
+                                <rect key="frame" x="0.0" y="-25" width="414" height="887"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="z0s-je-KOo">
+                                <rect key="frame" x="20" y="64" width="374" height="798"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F8z-Ec-Cgg">
+                                        <rect key="frame" x="0.0" y="0.0" width="374" height="85"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D1l-Ch-Chc">
+                                                <rect key="frame" x="10" y="10" width="354" height="65"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqc-eg-jcH">
+                                                        <rect key="frame" x="20" y="10" width="152" height="42"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uUh-iO-5gt" customClass="SecondaryHeaderLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                                <rect key="frame" x="17.5" y="0.0" width="117" height="42"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="uUh-iO-5gt" firstAttribute="centerX" secondItem="nqc-eg-jcH" secondAttribute="centerX" id="Jj3-sQ-b4n"/>
+                                                            <constraint firstItem="uUh-iO-5gt" firstAttribute="top" secondItem="nqc-eg-jcH" secondAttribute="top" id="h0U-xb-3DE"/>
+                                                            <constraint firstAttribute="bottom" secondItem="uUh-iO-5gt" secondAttribute="bottom" id="iYV-Gr-1Og"/>
+                                                            <constraint firstItem="uUh-iO-5gt" firstAttribute="centerY" secondItem="nqc-eg-jcH" secondAttribute="centerY" id="xEb-aR-ZkK"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xpc-n2-etX">
+                                                        <rect key="frame" x="182" y="10" width="152" height="42"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Past" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWy-tl-gxb" customClass="SecondaryHeaderLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                                <rect key="frame" x="17.5" y="0.0" width="117" height="42"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="bottom" secondItem="CWy-tl-gxb" secondAttribute="bottom" id="5xa-aq-NaW"/>
+                                                            <constraint firstItem="CWy-tl-gxb" firstAttribute="centerY" secondItem="xpc-n2-etX" secondAttribute="centerY" id="G3s-Lq-mcp"/>
+                                                            <constraint firstItem="CWy-tl-gxb" firstAttribute="top" secondItem="xpc-n2-etX" secondAttribute="top" id="icF-rj-kys"/>
+                                                            <constraint firstItem="CWy-tl-gxb" firstAttribute="centerX" secondItem="xpc-n2-etX" secondAttribute="centerX" id="sV0-fS-pAy"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G28-HA-1Mm">
+                                                        <rect key="frame" x="20" y="61" width="152" height="4"/>
+                                                        <color key="backgroundColor" red="0.96078431372549022" green="0.27843137254901962" blue="0.28235294117647058" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="4" id="Bzl-fQ-ZZf"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="G28-HA-1Mm" firstAttribute="width" secondItem="uUh-iO-5gt" secondAttribute="width" multiplier="1.3" id="FyB-4A-BeM"/>
+                                                    <constraint firstItem="G28-HA-1Mm" firstAttribute="leading" secondItem="nqc-eg-jcH" secondAttribute="leading" id="HUG-Z6-PzN"/>
+                                                    <constraint firstItem="nqc-eg-jcH" firstAttribute="top" secondItem="D1l-Ch-Chc" secondAttribute="top" constant="10" id="JAd-uO-nIh"/>
+                                                    <constraint firstItem="xpc-n2-etX" firstAttribute="top" secondItem="D1l-Ch-Chc" secondAttribute="top" constant="10" id="O0i-yv-7cL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="G28-HA-1Mm" secondAttribute="bottom" id="QDS-qb-hiR"/>
+                                                    <constraint firstItem="xpc-n2-etX" firstAttribute="leading" secondItem="nqc-eg-jcH" secondAttribute="trailing" constant="10" id="Tyy-W2-RmN"/>
+                                                    <constraint firstItem="nqc-eg-jcH" firstAttribute="height" secondItem="xpc-n2-etX" secondAttribute="height" id="dQ9-9z-6Tf"/>
+                                                    <constraint firstAttribute="trailing" secondItem="xpc-n2-etX" secondAttribute="trailing" constant="20" id="djD-jj-40z"/>
+                                                    <constraint firstItem="nqc-eg-jcH" firstAttribute="leading" secondItem="D1l-Ch-Chc" secondAttribute="leading" constant="20" id="fAB-Th-a7i"/>
+                                                    <constraint firstItem="G28-HA-1Mm" firstAttribute="top" secondItem="nqc-eg-jcH" secondAttribute="bottom" constant="9" id="jDS-Sa-4mp"/>
+                                                    <constraint firstItem="nqc-eg-jcH" firstAttribute="width" secondItem="xpc-n2-etX" secondAttribute="width" id="sBn-qM-Qjl"/>
+                                                    <constraint firstItem="CWy-tl-gxb" firstAttribute="width" secondItem="uUh-iO-5gt" secondAttribute="width" id="sCE-eJ-XRe"/>
+                                                    <constraint firstItem="nqc-eg-jcH" firstAttribute="trailing" secondItem="G28-HA-1Mm" secondAttribute="trailing" id="sbk-Nr-8to"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <viewLayoutGuide key="safeArea" id="3Nh-dd-A2u"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="85" id="EM0-PH-be0"/>
+                                            <constraint firstItem="D1l-Ch-Chc" firstAttribute="leading" secondItem="3Nh-dd-A2u" secondAttribute="leading" constant="10" id="KuW-ea-7rA"/>
+                                            <constraint firstItem="3Nh-dd-A2u" firstAttribute="trailing" secondItem="D1l-Ch-Chc" secondAttribute="trailing" constant="10" id="Lfg-GE-IRD"/>
+                                            <constraint firstItem="3Nh-dd-A2u" firstAttribute="bottom" secondItem="D1l-Ch-Chc" secondAttribute="bottom" constant="10" id="fOO-5W-fgs"/>
+                                            <constraint firstItem="D1l-Ch-Chc" firstAttribute="top" secondItem="3Nh-dd-A2u" secondAttribute="top" constant="10" id="nsz-SI-pXn"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kmp-0U-6bC" customClass="TopCurvedView" customModule="GoferHandy" customModuleProvider="target">
+                                        <rect key="frame" x="1" y="95" width="372" height="702"/>
+                                        <subviews>
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="jTM-ps-jDh">
+                                                <rect key="frame" x="20" y="10" width="332" height="672"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <prototypes>
+                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="orderTVH" rowHeight="127" id="xl4-79-RAt" customClass="OrderTVH" customModule="GoferHandy" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="28" width="332" height="127"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xl4-79-RAt" id="eXU-AS-god">
+                                                            <rect key="frame" x="0.0" y="0.0" width="332" height="127"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                        </tableViewCellContentView>
+                                                    </tableViewCell>
+                                                </prototypes>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="mYf-u3-Ycf" id="mgr-4S-xSg"/>
+                                                    <outlet property="delegate" destination="mYf-u3-Ycf" id="iAY-5f-AJR"/>
+                                                </connections>
+                                            </tableView>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="jTM-ps-jDh" firstAttribute="top" secondItem="Kmp-0U-6bC" secondAttribute="top" constant="10" id="0M4-CZ-Inj"/>
+                                            <constraint firstItem="jTM-ps-jDh" firstAttribute="leading" secondItem="Kmp-0U-6bC" secondAttribute="leading" constant="20" id="6HP-LB-VF9"/>
+                                            <constraint firstAttribute="bottom" secondItem="jTM-ps-jDh" secondAttribute="bottom" constant="20" id="7QS-s6-PTZ"/>
+                                            <constraint firstAttribute="trailing" secondItem="jTM-ps-jDh" secondAttribute="trailing" constant="20" id="Dao-zT-QIY"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="F8z-Ec-Cgg" firstAttribute="top" secondItem="z0s-je-KOo" secondAttribute="top" id="4VW-3X-Iu7"/>
+                                    <constraint firstItem="Kmp-0U-6bC" firstAttribute="top" secondItem="F8z-Ec-Cgg" secondAttribute="bottom" constant="10" id="Gcr-lf-jFC"/>
+                                    <constraint firstItem="F8z-Ec-Cgg" firstAttribute="leading" secondItem="z0s-je-KOo" secondAttribute="leading" id="OtB-xn-msl"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kmp-0U-6bC" secondAttribute="trailing" constant="1" id="YTQ-Kz-mEp"/>
+                                    <constraint firstItem="Kmp-0U-6bC" firstAttribute="leading" secondItem="z0s-je-KOo" secondAttribute="leading" constant="1" id="d7J-58-Q1m"/>
+                                    <constraint firstAttribute="bottom" secondItem="Kmp-0U-6bC" secondAttribute="bottom" constant="1" id="ipH-I2-Dgh"/>
+                                    <constraint firstAttribute="trailing" secondItem="F8z-Ec-Cgg" secondAttribute="trailing" id="j8e-Nl-dzL"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="k0x-s0-WBJ"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="z0s-je-KOo" firstAttribute="top" secondItem="k0x-s0-WBJ" secondAttribute="top" constant="20" id="Lyh-UE-IjX"/>
+                            <constraint firstItem="k0x-s0-WBJ" firstAttribute="trailing" secondItem="SfK-Pz-NNl" secondAttribute="trailing" id="M21-2E-eRX"/>
+                            <constraint firstItem="SfK-Pz-NNl" firstAttribute="top" secondItem="qhT-WR-iyP" secondAttribute="top" constant="-25" id="PFv-IU-cvg"/>
+                            <constraint firstItem="SfK-Pz-NNl" firstAttribute="leading" secondItem="k0x-s0-WBJ" secondAttribute="leading" id="Qos-JL-SYZ"/>
+                            <constraint firstItem="k0x-s0-WBJ" firstAttribute="bottom" secondItem="SfK-Pz-NNl" secondAttribute="bottom" id="Tpx-b8-afo"/>
+                            <constraint firstItem="z0s-je-KOo" firstAttribute="trailing" secondItem="k0x-s0-WBJ" secondAttribute="trailing" constant="-20" id="dlI-vK-g9G"/>
+                            <constraint firstItem="z0s-je-KOo" firstAttribute="bottom" secondItem="k0x-s0-WBJ" secondAttribute="bottom" id="lnV-Wu-V02"/>
+                            <constraint firstItem="z0s-je-KOo" firstAttribute="leading" secondItem="k0x-s0-WBJ" secondAttribute="leading" constant="20" id="ubb-6t-DLI"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="PVq-IT-YMP"/>
+                    <connections>
+                        <outlet property="tableView" destination="jTM-ps-jDh" id="ex1-OK-IVr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kQg-SJ-ySt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" id="qza-Kv-DS4">
+                    <rect key="frame" x="0.0" y="0.0" width="364" height="115"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="F8a-uF-o1F">
+                            <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jP6-MP-5mb" customClass="SecondaryThemeBorderedButton" customModule="GoferHandy" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="177" height="50"/>
+                                    <color key="backgroundColor" red="0.97617393730000002" green="0.97633737330000003" blue="0.97615092989999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                    <state key="normal" title="Decline">
+                                        <color key="titleColor" systemColor="darkTextColor"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceLeftToRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f9N-YO-xuM" customClass="PrimaryButton" customModule="GoferHandy" customModuleProvider="target">
+                                    <rect key="frame" x="187" y="0.0" width="177" height="50"/>
+                                    <color key="backgroundColor" name="ThemeMain"/>
+                                    <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                                    <state key="normal" title="Accept">
+                                        <color key="titleColor" name="ThemBgrnd"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                </button>
+                            </subviews>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="7D1-Wh-TJY"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dzY-Le-KAD">
+                            <rect key="frame" x="0.0" y="65" width="364" height="50"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ilO-Da-UIz">
+                                    <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z5M-Tk-EHK" customClass="InactiveButton" customModule="GoferHandy" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="364" height="50"/>
+                                            <color key="backgroundColor" name="ThemeMain"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <state key="normal" title="View Requested Job">
+                                                <color key="titleColor" name="ThemBgrnd"/>
+                                            </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </button>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="z5M-Tk-EHK" firstAttribute="top" secondItem="ilO-Da-UIz" secondAttribute="top" id="4DT-gv-51N"/>
+                                        <constraint firstAttribute="bottom" secondItem="z5M-Tk-EHK" secondAttribute="bottom" id="TiE-LU-Wdo"/>
+                                        <constraint firstItem="z5M-Tk-EHK" firstAttribute="leading" secondItem="ilO-Da-UIz" secondAttribute="leading" id="XG3-pX-KH5"/>
+                                        <constraint firstAttribute="trailing" secondItem="z5M-Tk-EHK" secondAttribute="trailing" id="vWo-qw-5Ny"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="k4x-T4-DLC"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="dxj-iu-azB"/>
+                </stackView>
+            </objects>
+            <point key="canvasLocation" x="2689.8550724637685" y="1428.3482142857142"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="background_new" width="1137" height="2356.60009765625"/>
+        <namedColor name="ThemBgrnd">
+            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ThemeMain">
+            <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="darkTextColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

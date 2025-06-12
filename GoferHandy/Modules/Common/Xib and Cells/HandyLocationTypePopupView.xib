@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19134"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HandyLocationTypePopupView" customModule="GoferHandy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fk-MS-cSX">
+                    <rect key="frame" x="0.0" y="44" width="414" height="637.5"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jSs-qR-HuG" customClass="TopCurvedView" customModule="GoferHandy" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="681.5" width="414" height="214.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Work Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x34-bd-pYW" customClass="SecondaryHeaderLabel" customModule="GoferHandy" customModuleProvider="target">
+                            <rect key="frame" x="152.5" y="15" width="109.5" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="mSa-aP-ZSh"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="SXy-dI-XbU" customClass="CommonTableView" customModule="GoferHandy" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="50" width="414" height="130.5"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="130.5" id="JQh-y6-OAg"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="dataSource" destination="iN0-l3-epB" id="pQB-Yl-z4c"/>
+                                <outlet property="delegate" destination="iN0-l3-epB" id="eOy-2U-qd8"/>
+                            </connections>
+                        </tableView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="SXy-dI-XbU" secondAttribute="trailing" id="Btu-0w-uvT"/>
+                        <constraint firstItem="x34-bd-pYW" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="jSs-qR-HuG" secondAttribute="leading" id="Gay-dR-RhG"/>
+                        <constraint firstItem="SXy-dI-XbU" firstAttribute="leading" secondItem="jSs-qR-HuG" secondAttribute="leading" id="TTn-Ow-HcY"/>
+                        <constraint firstItem="x34-bd-pYW" firstAttribute="top" secondItem="jSs-qR-HuG" secondAttribute="top" constant="15" id="Umn-iY-mpD"/>
+                        <constraint firstItem="x34-bd-pYW" firstAttribute="centerX" secondItem="jSs-qR-HuG" secondAttribute="centerX" id="ae2-wb-cy5"/>
+                        <constraint firstItem="SXy-dI-XbU" firstAttribute="top" secondItem="x34-bd-pYW" secondAttribute="bottom" id="ver-sQ-dgj"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="jSs-qR-HuG" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="5s6-bf-idJ"/>
+                <constraint firstItem="8fk-MS-cSX" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ELc-Oe-hxJ"/>
+                <constraint firstItem="8fk-MS-cSX" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="Err-EK-4TV"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8fk-MS-cSX" secondAttribute="trailing" id="Hk5-ye-qoa"/>
+                <constraint firstItem="jSs-qR-HuG" firstAttribute="top" secondItem="8fk-MS-cSX" secondAttribute="bottom" id="k5L-Y2-SrI"/>
+                <constraint firstItem="SXy-dI-XbU" firstAttribute="bottom" secondItem="vUN-kp-3ea" secondAttribute="bottom" id="lCn-Ln-V24"/>
+                <constraint firstAttribute="bottom" secondItem="jSs-qR-HuG" secondAttribute="bottom" id="nlX-hP-aPW"/>
+                <constraint firstAttribute="trailing" secondItem="jSs-qR-HuG" secondAttribute="trailing" id="wfQ-Ro-taA"/>
+            </constraints>
+            <connections>
+                <outlet property="holderView" destination="jSs-qR-HuG" id="6q7-Lt-z8y"/>
+                <outlet property="holderViewHeight" destination="JQh-y6-OAg" id="bjp-nr-met"/>
+                <outlet property="outerView" destination="8fk-MS-cSX" id="5vi-3P-dOb"/>
+                <outlet property="popUpTableView" destination="SXy-dI-XbU" id="Rh4-OH-5aX"/>
+                <outlet property="workLocLbl" destination="x34-bd-pYW" id="4tG-rq-lvh"/>
+            </connections>
+            <point key="canvasLocation" x="42.028985507246382" y="158.70535714285714"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

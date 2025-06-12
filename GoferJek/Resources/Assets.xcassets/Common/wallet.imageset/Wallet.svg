@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <defs>
+    <clipPath id="clip-Wallet">
+      <rect width="100" height="100"/>
+    </clipPath>
+  </defs>
+  <g id="Wallet" clip-path="url(#clip-Wallet)">
+    <g id="My_Wallet" data-name="My Wallet" transform="translate(3 6)">
+      <path id="Path_992" data-name="Path 992" d="M38.7,67.826V28.867a9.746,9.746,0,0,1,9.751-9.751H93.442V14.251A9.712,9.712,0,0,0,83.782,4.5H13.423A9.87,9.87,0,0,0,3.375,14.091V82.6a9.87,9.87,0,0,0,10.048,9.591H83.76a9.7,9.7,0,0,0,9.66-9.751V77.577H48.431A9.741,9.741,0,0,1,38.7,67.826Z" transform="translate(-3.375 -4.5)" fill="#2bcb7b"/>
+      <path id="Path_993" data-name="Path 993" d="M17.227,15.607V47.578a3.665,3.665,0,0,0,3.654,3.654h42.7a3.665,3.665,0,0,0,3.654-3.654V15.607a3.665,3.665,0,0,0-3.654-3.654H20.88A3.665,3.665,0,0,0,17.227,15.607Zm17.607,23.27a7.311,7.311,0,1,1,6.828-6.828A7.312,7.312,0,0,1,34.834,38.877Z" transform="translate(27.761 12.254)" fill="#2bcb7b"/>
+    </g>
+  </g>
+</svg>

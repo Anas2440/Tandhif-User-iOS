@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="6ZS-Hv-yeL" customClass="SetTipsView" customModule="GoferHandy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="427" height="434"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ma3-7a-77N" customClass="TopCurvedView" customModule="GoferHandy" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="243.5" width="427" height="190.5"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Puk-y0-0e3" customClass="SecondaryTextFieldLabel" customModule="GoferHandy" customModuleProvider="target">
+                            <rect key="frame" x="114" y="40" width="25" height="26.5"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="LW6-iV-dMQ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Enter tip amount" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nzf-Fq-OmF" customClass="commonTextField" customModule="GoferHandy" customModuleProvider="target">
+                            <rect key="frame" x="144" y="40" width="139" height="26.5"/>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="18"/>
+                            <textInputTraits key="textInputTraits" keyboardType="ASCIICapableNumberPad"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P0P-n2-Vig" customClass="PrimaryTintButton" customModule="GoferHandy" customModuleProvider="target">
+                            <rect key="frame" x="377" y="41" width="25" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="25" id="Od8-iZ-r10"/>
+                                <constraint firstAttribute="width" secondItem="P0P-n2-Vig" secondAttribute="height" multiplier="1:1" id="i5P-rc-aFQ"/>
+                            </constraints>
+                            <state key="normal" image="tip_cancel"/>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QWx-Ak-sLE" customClass="PrimaryButton" customModule="GoferHandy" customModuleProvider="target">
+                            <rect key="frame" x="25" y="91.5" width="377" height="50"/>
+                            <color key="backgroundColor" name="ThemeLight"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="Fga-h0-R5V"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="17"/>
+                            <state key="normal" title="SET TIP">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="P0P-n2-Vig" secondAttribute="trailing" constant="25" id="3cd-To-xvC"/>
+                        <constraint firstItem="Puk-y0-0e3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ma3-7a-77N" secondAttribute="leading" constant="25" id="6ZF-3l-gDm"/>
+                        <constraint firstItem="nzf-Fq-OmF" firstAttribute="leading" secondItem="Puk-y0-0e3" secondAttribute="trailing" constant="5" id="7iN-PL-M4d"/>
+                        <constraint firstItem="Puk-y0-0e3" firstAttribute="bottom" secondItem="nzf-Fq-OmF" secondAttribute="bottom" id="7yk-hI-25q"/>
+                        <constraint firstItem="QWx-Ak-sLE" firstAttribute="leading" secondItem="ma3-7a-77N" secondAttribute="leading" constant="25" id="GW7-7a-Ean"/>
+                        <constraint firstItem="P0P-n2-Vig" firstAttribute="centerY" secondItem="nzf-Fq-OmF" secondAttribute="centerY" id="bCq-S7-cRe"/>
+                        <constraint firstAttribute="trailing" secondItem="QWx-Ak-sLE" secondAttribute="trailing" constant="25" id="dnQ-yU-EEw"/>
+                        <constraint firstItem="nzf-Fq-OmF" firstAttribute="top" secondItem="ma3-7a-77N" secondAttribute="top" constant="40" id="mV1-nz-sEm"/>
+                        <constraint firstItem="P0P-n2-Vig" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nzf-Fq-OmF" secondAttribute="trailing" constant="5" id="smp-X7-MXp"/>
+                        <constraint firstItem="QWx-Ak-sLE" firstAttribute="top" secondItem="nzf-Fq-OmF" secondAttribute="bottom" constant="25" id="u85-Hc-j1S"/>
+                        <constraint firstItem="nzf-Fq-OmF" firstAttribute="centerX" secondItem="ma3-7a-77N" secondAttribute="centerX" id="w21-Sc-bKQ"/>
+                        <constraint firstItem="Puk-y0-0e3" firstAttribute="top" secondItem="nzf-Fq-OmF" secondAttribute="top" id="wo7-YT-vgG"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="s5m-Li-EJ7"/>
+            <color key="backgroundColor" white="0.0" alpha="0.22311108730000001" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ma3-7a-77N" firstAttribute="leading" secondItem="s5m-Li-EJ7" secondAttribute="leading" id="6Jb-Pq-T62"/>
+                <constraint firstItem="s5m-Li-EJ7" firstAttribute="bottom" secondItem="QWx-Ak-sLE" secondAttribute="bottom" constant="15" id="Nqa-pB-Xda"/>
+                <constraint firstItem="ma3-7a-77N" firstAttribute="trailing" secondItem="s5m-Li-EJ7" secondAttribute="trailing" id="XQZ-uz-bQv"/>
+                <constraint firstItem="ma3-7a-77N" firstAttribute="bottom" secondItem="6ZS-Hv-yeL" secondAttribute="bottom" id="vjB-Qg-qKI"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="closeTipViewBtn" destination="P0P-n2-Vig" id="Fa7-ie-yrA"/>
+                <outlet property="currencySymbolLbl" destination="Puk-y0-0e3" id="Am7-XO-8nF"/>
+                <outlet property="enterTipsTF" destination="nzf-Fq-OmF" id="pes-zC-OUz"/>
+                <outlet property="setTipBtn" destination="QWx-Ak-sLE" id="LAh-gS-hAc"/>
+                <outlet property="tipsHolderView" destination="ma3-7a-77N" id="1St-a6-csh"/>
+            </connections>
+            <point key="canvasLocation" x="638.40579710144937" y="583.25892857142856"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="tip_cancel" width="256" height="256"/>
+        <namedColor name="ThemeLight">
+            <color red="0.10980392156862745" green="0.69019607843137254" blue="0.81568627450980391" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

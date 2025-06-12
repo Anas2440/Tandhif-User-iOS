@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="14" height="16" viewBox="0 0 14 16">
+  <g id="selectservice-icon" transform="translate(-202 -116)">
+    <rect id="Rectangle_596" data-name="Rectangle 596" width="2" height="16" transform="translate(204 116)" fill="#424242"/>
+    <rect id="Rectangle_598" data-name="Rectangle 598" width="2" height="16" transform="translate(212 116)" fill="#424242"/>
+    <g id="Rectangle_597" data-name="Rectangle 597" transform="translate(202 127)" fill="#424242" stroke="#fff" stroke-width="0.5">
+      <rect width="6" height="3" stroke="none"/>
+      <rect x="0.25" y="0.25" width="5.5" height="2.5" fill="none"/>
+    </g>
+    <g id="Rectangle_599" data-name="Rectangle 599" transform="translate(210 118)" fill="#424242" stroke="#fff" stroke-width="0.5">
+      <rect width="6" height="3" stroke="none"/>
+      <rect x="0.25" y="0.25" width="5.5" height="2.5" fill="none"/>
+    </g>
+  </g>
+</svg>

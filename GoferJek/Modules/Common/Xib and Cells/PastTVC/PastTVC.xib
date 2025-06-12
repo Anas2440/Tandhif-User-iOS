@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19150" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19134"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="ClanPro-Medium.otf">
+            <string>ClanPro-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PastTVC" rowHeight="350" id="bXz-HI-dmJ" customClass="PastTVC" customModule="GoferHandy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="385" height="335"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bXz-HI-dmJ" id="Gwn-nv-Cri">
+                <rect key="frame" x="0.0" y="0.0" width="385" height="335"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bcx-D9-6pm">
+                        <rect key="frame" x="0.0" y="0.0" width="385" height="335"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="1dG-ju-YXr">
+                                <rect key="frame" x="10" y="15" width="365" height="294"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="2Ce-gL-tOv">
+                                        <rect key="frame" x="0.0" y="0.0" width="365" height="20"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No# 71564582" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z5A-xZ-C24" customClass="SecondarySmallBoldLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="91" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Fri, Nov 15 2020 12:02 pm" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6V9-Db-qcp" customClass="InactiveSmallLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                <rect key="frame" x="101" y="0.0" width="264" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="75M-pg-2hV"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <color key="textColor" name="ThemeInactive"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="z5A-xZ-C24" firstAttribute="top" secondItem="2Ce-gL-tOv" secondAttribute="top" id="7yn-NL-Ubr"/>
+                                            <constraint firstItem="6V9-Db-qcp" firstAttribute="top" secondItem="2Ce-gL-tOv" secondAttribute="top" id="GPb-jd-LGj"/>
+                                            <constraint firstItem="z5A-xZ-C24" firstAttribute="leading" secondItem="2Ce-gL-tOv" secondAttribute="leading" id="QYA-Dh-Pdd"/>
+                                            <constraint firstAttribute="bottom" secondItem="6V9-Db-qcp" secondAttribute="bottom" id="Tvu-s4-R5S"/>
+                                            <constraint firstAttribute="trailing" secondItem="6V9-Db-qcp" secondAttribute="trailing" id="YLX-tf-yvf"/>
+                                            <constraint firstAttribute="bottom" secondItem="z5A-xZ-C24" secondAttribute="bottom" id="dcn-fQ-RaD"/>
+                                        </constraints>
+                                    </stackView>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LQB-5m-exm">
+                                        <rect key="frame" x="0.0" y="35" width="365" height="20"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Status: " textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4j0-Jo-nJh" customClass="SecondarySmallLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="43.5" height="20"/>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstItem="4j0-Jo-nJh" firstAttribute="leading" secondItem="LQB-5m-exm" secondAttribute="leading" id="9wS-iu-PB3"/>
+                                            <constraint firstAttribute="height" constant="20" id="DjO-wt-PZe"/>
+                                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="4j0-Jo-nJh" secondAttribute="trailing" id="Qs6-7L-1FH"/>
+                                            <constraint firstAttribute="trailing" secondItem="4j0-Jo-nJh" secondAttribute="trailing" id="ipp-as-lRM"/>
+                                            <constraint firstItem="4j0-Jo-nJh" firstAttribute="top" secondItem="LQB-5m-exm" secondAttribute="top" id="maR-RZ-dlf"/>
+                                            <constraint firstAttribute="bottom" secondItem="4j0-Jo-nJh" secondAttribute="bottom" id="xLv-vk-oTZ"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="ipp-as-lRM"/>
+                                            </mask>
+                                        </variation>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="jzw-T3-zw3">
+                                        <rect key="frame" x="0.0" y="70" width="365" height="46"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fQ5-o1-Ka3">
+                                                <rect key="frame" x="0.0" y="0.0" width="365" height="15"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Your Job" translatesAutoresizingMaskIntoConstraints="NO" id="dUz-9F-AdJ">
+                                                        <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                        <color key="tintColor" name="ThemMain"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="15" id="GR4-af-DU2"/>
+                                                            <constraint firstAttribute="height" constant="15" id="ZL5-sG-WQ5"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="71q-ts-Vok" customClass="SecondarySmallLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                        <rect key="frame" x="25" y="0.0" width="340" height="15"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="dUz-9F-AdJ" firstAttribute="leading" secondItem="fQ5-o1-Ka3" secondAttribute="leading" id="0iE-bA-8aJ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="dUz-9F-AdJ" secondAttribute="bottom" id="Hx3-3f-Du4"/>
+                                                    <constraint firstItem="dUz-9F-AdJ" firstAttribute="top" secondItem="fQ5-o1-Ka3" secondAttribute="top" id="jnn-jH-wWD"/>
+                                                </constraints>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="249" verticalCompressionResistancePriority="751" text="12/9, Ranan Nagar, Madurai, TamilNadu - 625020, India" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5f9-Hc-x2n" customClass="SecondarySmallMediumLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="25" width="365" height="21"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="pjb-26-q06"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="pjb-26-q06"/>
+                                                    </mask>
+                                                </variation>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Y25-G0-uY5">
+                                        <rect key="frame" x="0.0" y="131" width="365" height="43"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dek-SO-LML">
+                                                <rect key="frame" x="0.0" y="0.0" width="365" height="15"/>
+                                                <subviews>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Your Job" translatesAutoresizingMaskIntoConstraints="NO" id="5AF-uS-8Ub">
+                                                        <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                        <color key="tintColor" red="0.21538209920000001" green="0.78154116870000001" blue="0.1831832528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="15" id="UaC-2T-Ajm"/>
+                                                            <constraint firstAttribute="width" constant="15" id="xWK-nJ-NHk"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Job Location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ou-9j-vuo" customClass="SecondarySmallLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                        <rect key="frame" x="25" y="0.0" width="340" height="15"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstItem="5AF-uS-8Ub" firstAttribute="leading" secondItem="dek-SO-LML" secondAttribute="leading" id="0UD-N3-tNV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="5AF-uS-8Ub" secondAttribute="bottom" id="R0E-Jy-asp"/>
+                                                    <constraint firstItem="5AF-uS-8Ub" firstAttribute="top" secondItem="dek-SO-LML" secondAttribute="top" id="hrY-1O-7tG"/>
+                                                </constraints>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12/9, Ranan Nagar, Madurai, TamilNadu - 625020, India" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZQw-At-5ho" customClass="SecondarySmallMediumLabel" customModule="GoferHandy" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="25" width="365" height="18"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="itM-Fu-pgi"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" name="AvenirNext-Medium" family="Avenir Next" pointSize="13"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="itM-Fu-pgi"/>
+                                                    </mask>
+                                                </variation>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="7Xy-mq-Vgt">
+                                        <rect key="frame" x="0.0" y="189" width="365" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ndT-aX-64K" customClass="PrimaryButton" customModule="GoferHandy" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="177.5" height="45"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="9VX-P2-wob"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" title="Cancel Booking">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wji-VJ-Vw2">
+                                                <rect key="frame" x="187.5" y="0.0" width="177.5" height="45"/>
+                                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                                <fontDescription key="fontDescription" name="ClanPro-Medium" family="Clan Pro" pointSize="15"/>
+                                                <state key="normal" title="Edit Time">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Uts-wp-YhD">
+                                        <rect key="frame" x="0.0" y="249" width="365" height="45"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xah-Bl-P72" customClass="TeritaryButton" customModule="GoferHandy" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="365" height="45"/>
+                                                <color key="backgroundColor" name="ThemeBgrnd"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="e48-E8-LgJ"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <state key="normal" title="Requested Services">
+                                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hCx-Nm-miT">
+                                <rect key="frame" x="58" y="334" width="269.5" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Mf7-BQ-RXH"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="hCx-Nm-miT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Bcx-D9-6pm" secondAttribute="leading" constant="25" id="6X6-QX-dmX"/>
+                            <constraint firstAttribute="trailing" secondItem="1dG-ju-YXr" secondAttribute="trailing" constant="10" id="JQk-2A-3bx"/>
+                            <constraint firstItem="hCx-Nm-miT" firstAttribute="centerX" secondItem="Bcx-D9-6pm" secondAttribute="centerX" id="OLb-vX-ccm"/>
+                            <constraint firstAttribute="bottom" secondItem="hCx-Nm-miT" secondAttribute="bottom" id="X6q-sg-dcE"/>
+                            <constraint firstItem="1dG-ju-YXr" firstAttribute="leading" secondItem="Bcx-D9-6pm" secondAttribute="leading" constant="10" id="bdd-vo-3m4"/>
+                            <constraint firstItem="hCx-Nm-miT" firstAttribute="width" secondItem="Bcx-D9-6pm" secondAttribute="width" multiplier="0.7" id="cyU-aL-8wV"/>
+                            <constraint firstItem="1dG-ju-YXr" firstAttribute="top" secondItem="Bcx-D9-6pm" secondAttribute="top" constant="15" id="hfB-yN-2RN"/>
+                            <constraint firstItem="hCx-Nm-miT" firstAttribute="top" secondItem="1dG-ju-YXr" secondAttribute="bottom" constant="25" id="luN-Ir-laD"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="hCx-Nm-miT" secondAttribute="trailing" constant="25" id="moQ-ee-l8T"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Bcx-D9-6pm" secondAttribute="trailing" id="2Br-ZA-Nb8"/>
+                    <constraint firstAttribute="bottom" secondItem="Bcx-D9-6pm" secondAttribute="bottom" id="Aog-3h-Si2"/>
+                    <constraint firstItem="Bcx-D9-6pm" firstAttribute="top" secondItem="Gwn-nv-Cri" secondAttribute="top" id="Fec-D9-mMk"/>
+                    <constraint firstItem="Bcx-D9-6pm" firstAttribute="leading" secondItem="Gwn-nv-Cri" secondAttribute="leading" id="pcy-bU-On1"/>
+                </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </userDefinedRuntimeAttribute>
+                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                        <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </userDefinedRuntimeAttribute>
+                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                        <size key="value" width="0.0" height="0.0"/>
+                    </userDefinedRuntimeAttribute>
+                </userDefinedRuntimeAttributes>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="nEl-U6-0nZ"/>
+            <connections>
+                <outlet property="buttonHolderStack" destination="7Xy-mq-Vgt" id="1C4-vy-jTn"/>
+                <outlet property="cancelBooking" destination="ndT-aX-64K" id="aeh-Ym-PD6"/>
+                <outlet property="dropImg" destination="5AF-uS-8Ub" id="61L-1h-QwB"/>
+                <outlet property="dropLocation" destination="ZQw-At-5ho" id="4Zl-m3-kea"/>
+                <outlet property="dropLocationHolderStack" destination="Y25-G0-uY5" id="KEl-O2-00x"/>
+                <outlet property="dropLocationText" destination="6Ou-9j-vuo" id="wJg-nM-ogK"/>
+                <outlet property="editTimeBtn" destination="Wji-VJ-Vw2" id="zPH-au-wGW"/>
+                <outlet property="jobDateTime" destination="6V9-Db-qcp" id="sQx-xo-eNz"/>
+                <outlet property="jobId" destination="z5A-xZ-C24" id="xUb-Ac-i6R"/>
+                <outlet property="jobLocation" destination="5f9-Hc-x2n" id="yxu-SI-8td"/>
+                <outlet property="jobLocationText" destination="71q-ts-Vok" id="xU0-3r-bBK"/>
+                <outlet property="jobStatusTitleLbl" destination="4j0-Jo-nJh" id="hUW-cK-Jmt"/>
+                <outlet property="lineView" destination="hCx-Nm-miT" id="Hfa-7o-FWV"/>
+                <outlet property="locationImg" destination="dUz-9F-AdJ" id="kRw-Ew-YGr"/>
+                <outlet property="mainBGView" destination="Bcx-D9-6pm" id="QQ2-dR-KkI"/>
+                <outlet property="pickupImg" destination="dUz-9F-AdJ" id="fyL-um-dzA"/>
+                <outlet property="reqServiceStack" destination="Uts-wp-YhD" id="mlE-6D-8KI"/>
+                <outlet property="requestedServicesBtn" destination="xah-Bl-P72" id="2QL-NX-kBe"/>
+                <outlet property="statusHolderView" destination="LQB-5m-exm" id="L0U-PR-XV8"/>
+            </connections>
+            <point key="canvasLocation" x="68.840579710144937" y="161.04910714285714"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Your Job" width="5.5" height="7.5"/>
+        <namedColor name="ThemMain">
+            <color red="0.91764705882352937" green="0.2196078431372549" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ThemeBgrnd">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ThemeInactive">
+            <color red="0.63921568627450975" green="0.63921568627450975" blue="0.6705882352941176" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

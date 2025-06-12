@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="23727" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="23721"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HandyHomeServiceCVC" id="gTV-IL-0wX" customClass="HandyHomeServiceCVC" customModule="GoferHandy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="126" height="161"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="126" height="161"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX0-yG-fyM" customClass="SecondaryView" customModule="GoferHandy" customModuleProvider="target">
+                        <rect key="frame" x="5" y="4" width="116" height="151"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="q3R-za-JA5">
+                                <rect key="frame" x="0.0" y="0.0" width="116" height="151"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WS1-ec-xxh" customClass="SecondaryView" customModule="GoferHandy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="116" height="97.5"/>
+                                        <subviews>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Zh-rs-eDB">
+                                                <rect key="frame" x="0.0" y="0.0" width="97.5" height="97.5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="6Zh-rs-eDB" secondAttribute="height" id="sOG-tD-VtY"/>
+                                                </constraints>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="6Zh-rs-eDB" firstAttribute="leading" secondItem="WS1-ec-xxh" secondAttribute="leading" id="0BA-0K-jxf"/>
+                                            <constraint firstItem="6Zh-rs-eDB" firstAttribute="width" secondItem="WS1-ec-xxh" secondAttribute="width" id="964-gq-5jW"/>
+                                            <constraint firstItem="6Zh-rs-eDB" firstAttribute="height" secondItem="WS1-ec-xxh" secondAttribute="height" id="EdE-qi-oOa"/>
+                                            <constraint firstItem="6Zh-rs-eDB" firstAttribute="centerY" secondItem="WS1-ec-xxh" secondAttribute="centerY" id="MZ5-QL-72n"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" text="Home Paintin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KZc-lr-A3o" customClass="SecondarySmallLabel" customModule="GoferHandy" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="102.5" width="116" height="48.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="q3R-za-JA5" firstAttribute="top" secondItem="AX0-yG-fyM" secondAttribute="top" id="EOs-SS-q4y"/>
+                            <constraint firstAttribute="bottom" secondItem="q3R-za-JA5" secondAttribute="bottom" id="aMF-rF-sFv"/>
+                            <constraint firstItem="KZc-lr-A3o" firstAttribute="height" secondItem="AX0-yG-fyM" secondAttribute="height" multiplier="0.32" id="hWh-TA-s1F"/>
+                            <constraint firstItem="q3R-za-JA5" firstAttribute="leading" secondItem="AX0-yG-fyM" secondAttribute="leading" id="iNM-gi-ZGO"/>
+                            <constraint firstAttribute="trailing" secondItem="q3R-za-JA5" secondAttribute="trailing" id="nw3-6l-v5M"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="AX0-yG-fyM" secondAttribute="bottom" constant="6" id="9mY-Ec-qh0"/>
+                <constraint firstItem="AX0-yG-fyM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="4" id="HEh-st-Vh7"/>
+                <constraint firstItem="AX0-yG-fyM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="Jtg-EL-IIX"/>
+                <constraint firstAttribute="trailing" secondItem="AX0-yG-fyM" secondAttribute="trailing" constant="5" id="RnR-P7-sj5"/>
+            </constraints>
+            <size key="customSize" width="181" height="290"/>
+            <connections>
+                <outlet property="contentHolderView" destination="AX0-yG-fyM" id="W4d-2t-P1x"/>
+                <outlet property="imageHolderView" destination="WS1-ec-xxh" id="B4Z-TM-h5l"/>
+                <outlet property="serviceIV" destination="6Zh-rs-eDB" id="rkh-8K-Y0S"/>
+                <outlet property="serviceNameLbl" destination="KZc-lr-A3o" id="kp5-1M-0k2"/>
+            </connections>
+            <point key="canvasLocation" x="182.60869565217394" y="142.29910714285714"/>
+        </collectionViewCell>
+    </objects>
+</document>

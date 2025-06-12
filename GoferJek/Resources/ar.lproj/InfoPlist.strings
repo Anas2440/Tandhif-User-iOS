@@ -1,0 +1,15 @@
+/* 
+  InfoPlist.strings
+  Gofer
+
+  Created by trioangle on 28/02/19.
+  Copyright © 2019 Trioangle Technologies. All rights reserved.
+*/
+"NSLocationWhenInUseUsageDescription" = "Gofer تتبع موقفك لحساب مسافة الرحلة.";
+"NSLocationAlwaysUsageDescription" = "Gofer تتبع موقفك لحساب مسافة الرحلة.";
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "Gofer تتبع موقفك لحساب مسافة الرحلة.";
+"NSLocationUsageDescription" = "Gofer تتبع موقفك لحساب مسافة الرحلة.";
+"NSCameraUsageDescription" = "Gofer إلى تمكين الوصول إلى الكاميرا بحيث يمكنك السماح لبرنامج التشغيل بعرض صورتك.";
+"NSPhotoLibraryUsageDescription" = "Gofer إلى تمكين الوصول إلى الكاميرا بحيث يمكنك السماح لبرنامج التشغيل بعرض صورتك.";
+
+"NSMicrophoneUsageDescription" = "Gofer يستخدم للاتصال سائق الرحلة.";
