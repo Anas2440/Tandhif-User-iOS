@@ -29,7 +29,7 @@ extension JSONDecoder{
             return { data in
                 print(data,"data...ferwed")
                 do {
-                    print("🔍 JSON String: \(String(data: data, encoding: .utf8) ?? "Unable to decode data to string")")
+                //    print("🔍 JSON String: \(String(data: data, encoding: .utf8) ?? "Unable to decode data to string")")
                     let value = try self.decode(model.self, from: data)
                     result(value)
                 } catch {

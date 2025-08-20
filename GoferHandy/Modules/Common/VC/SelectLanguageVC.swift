@@ -54,6 +54,7 @@ class SelectLanguageVC: BaseViewController {
         let support = UberSupport()
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         support.showProgressInWindow(showAnimation: true)
+        print(language.key)
         ConnectionHandler.shared
             .getRequest(for: .updateLanguage,
                         params: [ "language" : language.key ]

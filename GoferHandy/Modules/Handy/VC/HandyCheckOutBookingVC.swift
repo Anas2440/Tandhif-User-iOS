@@ -24,7 +24,8 @@ class HandyCheckOutBookingVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.wsToGetPromo()
-        // Do any additional setup after loading the view.
+        // ✅ ADD NOTIFICATION OBSERVER HERE
+        self.addJobAcceptedObserver()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -33,6 +34,11 @@ class HandyCheckOutBookingVC: BaseViewController {
     }
     override var preferredStatusBarStyle: UIStatusBarStyle {
             return self.traitCollection.userInterfaceStyle == .dark ? .lightContent : .darkContent
+    }
+    
+    // ✅ ADD DEINIT TO REMOVE THE OBSERVER AND PREVENT MEMORY LEAKS
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     //MARK:- intiWithStory
@@ -49,6 +55,42 @@ class HandyCheckOutBookingVC: BaseViewController {
         
     }
     //MARK:- UDF
+    // ✅ 1. ADD METHOD TO SETUP THE OBSERVER
+    func addJobAcceptedObserver() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(self.handleJobAccepted),
+            name: .HandyJobRequestAccepted,
+            object: nil
+        )
+    }
+    
+    // ✅ 2. ADD THE HANDLER METHOD THAT PERFORMS THE NAVIGATION
+    @objc func handleJobAccepted() {
+        // Ensure we are on the main thread for UI updates
+        DispatchQueue.main.async {
+            guard let jobID = ((UserDefaults.value(for: .current_job_id) ?? 0) as? Int),
+                  let navController = self.navigationController else {
+                return
+            }
+            
+            // Create the destination view controller
+            let routeVC = HandyRouteVC.initWithStory(forJobID: jobID)
+            
+            // To create a clean navigation flow, we will replace the
+            // current checkout screen in the stack with the new route screen.
+            
+            var viewControllers = navController.viewControllers
+            // Remove the last view controller (which is this checkout screen)
+            viewControllers.removeLast()
+            // Add the new route screen
+            viewControllers.append(routeVC)
+            
+            // Animate the transition to the new stack
+            navController.setViewControllers(viewControllers, animated: true)
+        }
+    }
+    
     func generateDataSource(){
         defer {
             self.checkOutBookingView.chekOutTable.reloadData()

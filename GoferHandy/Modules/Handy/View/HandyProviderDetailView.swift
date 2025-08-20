@@ -666,10 +666,10 @@ extension HandyProviderDetailView : UITableViewDataSource{
                 cell.descriptionLbl.text = currentItem.itemDescription
                 
                 var baseFareStr = ""
-                if currentItem.baseFare > currentItem.minimumFare{
-                    baseFareStr = String(format: "%.2f", currentItem.baseFare)
+                if currentItem.baseFare.toDouble() > currentItem.minimumFare.toDouble(){
+                    baseFareStr = String(format: "%.2f", currentItem.baseFare.toDouble())
                 }else{
-                    baseFareStr = String(format: "%.2f", currentItem.minimumFare)
+                    baseFareStr = String(format: "%.2f", currentItem.minimumFare.toDouble())
                 }
                 //  baseFareStr = String(format: "%.2f", currentItem.baseFare)
                 
@@ -694,11 +694,13 @@ extension HandyProviderDetailView : UITableViewDataSource{
                         self.showHideBasket()
                         tableView.reloadData()
                     }else{
+                        let quantityBasedTypes: [PriceType] = [.fixed, .squareMeter]
+
                         if let exisitingItem = self.providerDetailVC.provider.bookedItems.first,
-                           !(exisitingItem.priceType == .fixed && currentItem.priceType == .fixed){
+                           // Check if both the existing and new items are NOT quantity-based
+                           !(quantityBasedTypes.contains(exisitingItem.priceType) && quantityBasedTypes.contains(currentItem.priceType)) {
                             self.showAlertForChangingService()
                             return
-                            
                         }
                         self.providerDetailVC.navigateToBookService(currentItem)
                     }

@@ -100,7 +100,7 @@ enum PaymentOptions : String{
                 self = .stripe
             case "onlinepayment":
                 self = .onlinepayment
-            case "apple_pay_enabled":
+            case "apple_pay":
                 self = .apple_pay
             case "google_pay":
                 self = .google_pay

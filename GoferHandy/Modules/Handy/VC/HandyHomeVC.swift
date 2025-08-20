@@ -344,54 +344,85 @@ class HandyHomeVC: BaseViewController {
         })
     }
         //MARK:- ws
-    func wsToGetServices(isCacheNeeded: Bool){
+    func wsToGetServices(isCacheNeeded: Bool) {
         Shared.instance.showLoaderInWindow()
-        let param : JSON = isCacheNeeded ? ["cache":1] : [:]
+        let param: JSON = isCacheNeeded ? ["cache": 1] : [:]
         self.handyHomeView.noServiceFoundLbl.adjustsFontSizeToFitWidth = true
         self.handyHomeView.noServiceFoundLbl.isHidden = true
         self.handyHomeView.chooseStack.isHidden = false
-        self.handyBookingVM?.wsToGetServiceListDetails(param: param,{ [self] (result) in
+        
+        self.handyBookingVM?.wsToGetServiceListDetails(param: param, { [weak self] (result) in
             
-            switch result{
+            // ====================== THE FIX: START ======================
+            // Switch to the main thread before touching any UI components or data sources.
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                
+                // Now that we are on the main thread, it's safe to update the UI.
+                Shared.instance.removeLoaderInWindow()
+                self.Refresher.endRefreshing()
+                self.isSericeAPIInProgress = false
+                self.handyHomeView.isLoading = false
+
+                switch result {
                 case .success(let response):
-                    Shared.instance.removeLoaderInWindow()
-                    if response.services.count > 0 {
-                        if self.Refresher.isRefreshing{
-                            self.handyHomeView.servicesCollection.reloadData()
-                            self.Refresher.endRefreshing()
-                        }
-                        self.isSericeAPIInProgress = false
-                        self.handyHomeView.services.removeAll()
-                        self.handyHomeView.isLoading = false
-                        self.isSingleCategory = response.services.count == 1
-                        self.handyHomeView.servicesCollection.reloadData()
-                        self.handyHomeView.services = response.services
-                        for service in self.handyHomeView.services {
-                            let new_service = SelectedService(service_id: service.serviceID, service_name: service.serviceName, service_image: service.imageIcon, selectedCategories: [])
+                    if !response.services.isEmpty {
+                        // 1. Keep a copy of the cart with the user's current selections.
+                        let oldSelections = selectedServicesCart
+                        
+                        // 2. Clear and rebuild the cart's structure based on the fresh API data.
+                        // This ensures the cart always reflects the available services.
+                        selectedServicesCart.removeAll()
+                        for service in response.services {
+                            let new_service = SelectedService(service_id: service.serviceID,
+                                                              service_name: service.serviceName,
+                                                              service_image: service.imageIcon,
+                                                              selectedCategories: []) // Start with empty categories
                             selectedServicesCart.append(new_service)
                         }
-                        self.handleSelectedServices()
-                        self.handyHomeView.servicesCollection.reloadData()
+                        
+                        // 3. Restore the user's selections from the old copy.
+                        // We iterate through the newly created cart.
+                        for i in 0..<selectedServicesCart.count {
+                            let newServiceId = selectedServicesCart[i].service_id
+                            // We find if this service existed in the old cart and had selections.
+                            if let oldMatchingService = oldSelections.first(where: { $0.service_id == newServiceId }) {
+                                // If it did, we copy its selected categories over.
+                                selectedServicesCart[i].selectedCategories = oldMatchingService.selectedCategories
+                            }
+                        }
+                        
+                        // 4. Now, update the UI with the corrected data.
+                        self.handyHomeView.services = response.services
+                        self.isSingleCategory = response.services.count == 1
+                        self.handleSelectedServices() // This will now show the correct count.
+                        
                         self.handyHomeView.servicesCollection.isHidden = false
                         self.handyHomeView.noServiceFoundLbl.isHidden = true
                         self.handyHomeView.chooseStack.isHidden = false
+                        
                     } else {
-                        self.isSericeAPIInProgress = false
-                        self.Refresher.endRefreshing()
-                        self.handyHomeView.isLoading = true
+                        // Handle the "no services found" case
                         self.handyHomeView.services.removeAll()
-                        self.handyHomeView.noServiceFoundLbl.textColor = .PrimaryColor
+                        self.handyHomeView.servicesCollection.isHidden = true
                         self.handyHomeView.noServiceFoundLbl.isHidden = false
                         self.handyHomeView.chooseStack.isHidden = true
                         self.handyHomeView.noServiceFoundLbl.text = response.statusMessage
-                        self.handyHomeView.servicesCollection.reloadData()
                     }
+                    
+                    // 3. Finally, reload the collection view ONCE with the new data.
+                    self.handyHomeView.servicesCollection.reloadData()
+
                 case .failure(let error):
-                    self.isSericeAPIInProgress = false
+                    // Still on the main thread, safe to show alerts or update UI
                     print(error.localizedDescription)
-                    self.Refresher.endRefreshing()
-                    Shared.instance.removeLoaderInWindow()
+                    self.handyHomeView.noServiceFoundLbl.text = "Error loading services."
+                    self.handyHomeView.noServiceFoundLbl.isHidden = false
+                    self.handyHomeView.services.removeAll()
+                    self.handyHomeView.servicesCollection.reloadData()
+                }
             }
+            // ====================== THE FIX: END ======================
         })
     }
     func callTimer(){

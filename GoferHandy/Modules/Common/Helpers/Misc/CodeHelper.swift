@@ -14,9 +14,23 @@ extension Dictionary where Dictionary == JSON {
     var otpStatus : String{
         return String(self["otp"] as? String ?? String())
     }
-    var status_code : Int{
-        return Int(self["status_code"] as? String ?? String()) ?? Int()
-    }
+    var status_code: Int {
+            // First, try to get the value as an Int directly.
+            // This handles cases where the JSON is { "status_code": 1 }
+            if let codeAsInt = self["status_code" as! Key] as? Int {
+                return codeAsInt
+            }
+            
+            // If that fails, try to get it as a String and convert it to an Int.
+            // This handles cases where the JSON is { "status_code": "1" }
+            if let codeAsString = self["status_code" as! Key] as? String {
+                return Int(codeAsString) ?? 0 // Return 0 if string is not a valid number
+            }
+            
+            // If both fail, it's not a valid Int or String, so return 0.
+            return 0
+        }
+        
     var isSuccess : Bool{
         return status_code != 0
     }
@@ -50,14 +64,20 @@ extension Dictionary where Dictionary == JSON {
      func string(_ key : String)-> String{
      // return self[key] as? String ?? String()
          let value = self[key]
-         if let str = value as? String{
-            return str
-         }else if let int = value as? Int{
-            return int.description
-         }else if let double = value as? Double{
-            return double.description
+         if let value = self[key] {
+             
+             if let str = value as? String{
+                 return str
+             }else if let int = value as? Int{
+                 return int.description
+             }else if let double = value as? Double{
+                 return double.description
+             }
+             else{
+                 return String()
+             }
          }else{
-            return String()
+             return String()
          }
      }
     func nsString(_ key: String)-> NSString {

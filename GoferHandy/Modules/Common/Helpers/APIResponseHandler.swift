@@ -53,11 +53,11 @@ class APIResponseHandler : APIResponseProtocol{
         print("dataSeq is nil:", dataSeq == nil)
         print("Value type:", type(of: value))
 
-        // Safely cast or convert to JSON
         if let dict = value as? [String: Any] {
             self.jsonSeq?(dict)
-        } else if let nsDict = value as? NSDictionary as? [String: Any] {
-            self.jsonSeq?(nsDict)
+        } else if let nsDict = value as? NSDictionary,
+                  let dict = nsDict as? [String: Any] {
+            self.jsonSeq?(dict)
         } else {
             print("❌ Could not convert value to [String: Any]")
             self.errorSeq?("Invalid response format")

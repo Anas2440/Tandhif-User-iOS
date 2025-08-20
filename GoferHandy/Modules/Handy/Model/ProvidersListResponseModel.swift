@@ -385,34 +385,40 @@ class ServiceItem: Codable,Equatable {
     var selectedQuantity = 0
     var specialServiceDescription = String()
     var isCustomItem = false
-    var calculatedAmount : Double{
-        guard !self.isCustomItem else{
+    var calculatedAmount : Double {
+        guard !self.isCustomItem else {
             return Double(self.baseFare) ?? 0.0
         }
         var totalPrice = Double()
-        
-        
+            
         switch self.priceType {
             
         case .fixed:
-                totalPrice = (Double(self.baseFare) ?? 0.0)  * Double(selectedQuantity)
+            totalPrice = (Double(self.baseFare) ?? 0.0) * Double(selectedQuantity)
+            
         case .hourly:
-                totalPrice = ((Double(self.minimumHours) ?? 0.0) * (Double(self.baseFare) ?? 0.0) )
+            totalPrice = (Double(self.minimumHours) ?? 0.0) * (Double(self.baseFare) ?? 0.0)
+            
         case .distance:
-//            totalPrice = Double(self.perKilometer) + Double(self.perMins) +  baseFare
-            if baseFare > minimumFare{
+            // Note: You are comparing string values here, which can be unreliable.
+            // It's better to convert to Double before comparing.
+            if (Double(baseFare) ?? 0.0) > (Double(minimumFare) ?? 0.0) {
                 totalPrice = Double(baseFare) ?? 0.0
-
-            }else{
+            } else {
                 totalPrice = Double(minimumFare) ?? 0.0
             }
+
+        // ✅ Added logic for Square Meter
+        case .squareMeter:
+            totalPrice = (Double(self.baseFare) ?? 0.0) * Double(selectedQuantity)
 
         case .none:
             totalPrice = 0.0
         }
-        if totalPrice < 0{
+        
+        if totalPrice < 0 {
             return 0.0
-        }else{
+        } else {
             return totalPrice
         }
     }
@@ -460,8 +466,8 @@ class ServiceItem: Codable,Equatable {
 //        let location = try container.decodeIfPresent(Location.self, forKey: .location)
 //        let price = try container.decodeIfPresent(PriceType.self, forKey: .priceType)
 //        self.location = ""
-        let rawPriceType = try container.decodeIfPresent(Int.self, forKey: .priceType)
-        self.priceType = PriceType(rawValue: rawPriceType?.description ?? "") ?? .fixed
+//        let rawPriceType = try container.decodeIfPresent(Int.self, forKey: .priceType)
+        self.priceType = try container.decodeIfPresent(PriceType.self, forKey: .priceType) ?? .none
 
 //        self.priceType = price ?? PriceType.hourly
         self.baseFare = container.safeDecodeValue(forKey: .baseFare)

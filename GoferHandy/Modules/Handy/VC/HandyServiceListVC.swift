@@ -156,7 +156,7 @@ class HandyServiceListVC: BaseViewController {
     func navigateToProvidersList(){
         self.navigationController?.popViewController(animated: true)
         self.popHandler?()
-        self.popHandler = nil
+//        self.popHandler = nil
         
 //        self.navigationController?.pushViewController(HandyServiceProvidersVC
 //            .initWithStory(for: self.service,

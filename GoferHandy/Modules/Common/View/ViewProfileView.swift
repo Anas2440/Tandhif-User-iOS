@@ -476,6 +476,8 @@ class ViewProfileView: BaseView,
                                                       bgColor: UIColor.black,
                                                       textColor: UIColor.white)
             }
+            UberSupport().removeProgress(viewCtrl: self.viewController)
+            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.isUserInteractionEnabled = true
         }
     }
     

@@ -160,7 +160,12 @@ class HandyBookServiceView: BaseView {
         
         let minHours = self.bookServiceVC.serviceItem.minimumHours
         let baseFare = self.bookServiceVC.serviceItem.baseFare
-        let baseFareStr = String(format: "%.2f", baseFare)
+        var baseFareStr = ""
+        if baseFare.toDouble() > self.bookServiceVC.serviceItem.minimumFare.toDouble(){
+            baseFareStr = String(format: "%.2f", self.bookServiceVC.serviceItem.baseFare.toDouble())
+        }else{
+            baseFareStr = String(format: "%.2f", self.bookServiceVC.serviceItem.minimumFare.toDouble())
+        }
         let calculatedAmountStr = String(format: "%.2f", self.bookServiceVC.serviceItem.calculatedAmount)
         let perKM = self.bookServiceVC.serviceItem.perKilometer
         let perMin = self.bookServiceVC.serviceItem.perMins
@@ -170,7 +175,7 @@ class HandyBookServiceView: BaseView {
         //        self.servicePriceLbl.text = "\(currency) \(self.bookServiceVC.serviceItem.baseFare.description)"
         self.servicePriceLbl.text = "\(currency)\(baseFareStr)"
         
-        if self.priceType == PriceType.fixed && Int(self.bookServiceVC.serviceItem.maximumQuantity) ?? 0 > 1 {
+        if (self.priceType == .fixed || self.priceType == .squareMeter) && Int(self.bookServiceVC.serviceItem.maximumQuantity.toInt()) > 1 {
             //            self.ItemCountViewHeightConstraint.constant = 40
             self.countHolderView.isHidden = false
         }else {
@@ -188,12 +193,12 @@ class HandyBookServiceView: BaseView {
             self.lineLbl.isHidden = true
             self.baseFareView.isHidden = true
             self.noteLbl.isHidden = true
+
         case .hourly:
             self.hourlyChargeView.isHidden = false
             self.estimatedChargeView.isHidden = false
             self.lineLbl.isHidden = false
             self.baseFareView.isHidden = true
-            
             
             self.baseFarePriceLbl.text = "\(currency)\(baseFareStr)"
             self.baseFareTitleLbl.text = LangCommon.baseFare.capitalized
@@ -205,6 +210,7 @@ class HandyBookServiceView: BaseView {
             self.hourlyChargePriceLbl.text = minHours.description
             self.noteLbl.isHidden = true
             self.noteLbl.text = "[ \(LangCommon.note.capitalized): \(LangHandy.fareWillVaryBasedOnHours) ]"
+
         case .distance:
             self.hourlyChargeView.isHidden = false
             self.estimatedChargeView.isHidden = false
@@ -221,12 +227,30 @@ class HandyBookServiceView: BaseView {
             self.hourlyChargeTitleLbl.text = LangCommon.perMin.capitalized
             self.hourlyChargePriceLbl.text = String(format: "\(currency)%.2f", perMin)
             
-            
             self.noteLbl.isHidden = true
             self.noteLbl.text = "[ \(LangCommon.note.capitalized): \(LangHandy.fareWillVaryBasedOnDistance) ]"
+
+        // ✅ New case added
+        case .squareMeter:
+            self.baseFareView.isHidden = false
+            self.hourlyChargeView.isHidden = true
+            self.estimatedChargeView.isHidden = true
+            self.lineLbl.isHidden = true
+            self.noteLbl.isHidden = false
+            
+            // Set the title and price for the square meter rate
+            // Note: You will need to add "Price Per Sq. Meter" to your localization files (LangCommon).
+            self.baseFareTitleLbl.text = "Price Per Sq. Meter" // Or use LangCommon key
+            self.baseFarePriceLbl.text = "\(currency)\(baseFareStr)"
+            
+            // Hide the main service charge view as the base fare view handles it
+            self.serviceChargeView.isHidden = true
+            
+            // Add a helpful note for the user
+            self.noteLbl.text = "[ Note: Final price is based on the total area selected. ]"
+
         case .none:
             self.noteLbl.isHidden = true
-            
         }
         
         self.specialInstructionTextView.text = self.bookServiceVC.serviceItem.specialServiceDescription.capitalized
@@ -288,6 +312,7 @@ class HandyBookServiceView: BaseView {
     
         let totalPrice = Double(itemCount) * (Double(self.bookServiceVC.serviceItem.baseFare) ?? 0 )
         let totalPriceDescription = String(format: "%.2f", totalPrice)
+        print("DEBUG: Total price is \(totalPriceDescription)") // Dummy use
         self.servicePriceLbl.text = "\(self.bookServiceVC.serviceItem.currencySymbol)\(totalPriceDescription)"
     }
     

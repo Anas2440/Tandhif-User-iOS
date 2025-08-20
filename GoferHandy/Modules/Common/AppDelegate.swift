@@ -52,6 +52,7 @@ class AppDelegate: UIResponder {
         })
         return container
     }()
+    
 }
 
 // MARK: - Application Delegate Handling
@@ -255,6 +256,9 @@ extension AppDelegate : UIApplicationDelegate {
     // MARK: - Remote Notification Methods // <= iOS 9.x
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { String(format: "%02.2hhx", $0) }
+            let token = tokenParts.joined()
+            print("✅ APNs Device Token: \(token)")
         CallManager.instance.registerForPushNotificaiton(token: deviceToken,
                                                          forApplicaiton: application)
         Messaging.messaging().apnsToken = deviceToken
@@ -635,6 +639,18 @@ extension AppDelegate {
     }
     // Get FCM Token
     func connectToFcm() {
+    }
+    
+    // In AppDelegate.swift
+
+    func application(_ application: UIApplication, shouldSaveApplicationState coder: NSCoder) -> Bool {
+        // Opt-in to saving the app's state.
+        return true
+    }
+
+    func application(_ application: UIApplication, shouldRestoreApplicationState coder: NSCoder) -> Bool {
+        // Opt-in to restoring the app's state on a new launch.
+        return true
     }
 }
 

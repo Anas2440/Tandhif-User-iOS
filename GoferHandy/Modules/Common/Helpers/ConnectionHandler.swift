@@ -151,7 +151,7 @@ final class ConnectionHandler : NSObject {
 //        print(api,"̛̦̄̈‰")
         parameters["token"] = preference.string(forKey: "access_token")
         parameters["user_type"] = "User"//Global_UserType
-        parameters["device_id"] =  strDeviceToken//Constants().GETVALUE(keyname: "device_token") //strDeviceToken
+        parameters["device_id"] =  Utilities.sharedInstance.getDeviceToken()//Constants().GETVALUE(keyname: "device_token") //strDeviceToken
         parameters["device_type"] = strDeviceType
         if parameters["language"] == nil,
            let language : String =  UserDefaults.value(for: .default_language_option){
@@ -615,96 +615,111 @@ final class ConnectionHandler : NSObject {
         return responseHandler
     }
     
-    func uploadPost(wsMethod:String,
-                    paramDict: [String:Any],
-                    fileName:String="image",
-                    imgData:Data?,
-                    viewController:UIViewController,
-                    isToShowProgress:Bool,
-                    isToStopInteraction:Bool,
-                    complete:@escaping (_ response: [String:Any]) -> Void) {
+    func uploadPost(
+        wsMethod: String,
+        paramDict: [String: Any],
+        fileName: String = "image",
+        imgData: Data?,
+        viewController: UIViewController,
+        isToShowProgress: Bool,
+        isToStopInteraction: Bool,
+        complete: @escaping (_ response: [String: Any]) -> Void
+    ) {
         let startTime = Date()
+
+        // This defer block ensures the UI is always unlocked and the spinner is hidden, even on failure.
+        defer {
+            if isToShowProgress {
+                UberSupport().removeProgress(viewCtrl: viewController)
+            }
+            if isToStopInteraction {
+                UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.isUserInteractionEnabled = true
+            }
+        }
+
         if isToShowProgress {
             UberSupport().showProgress(viewCtrl: viewController, showAnimation: true)
         }
         if isToStopInteraction {
-            // UIApplication.shared.beginIgnoringInteractionEvents()
-            UIApplication.shared.windows.last?.isUserInteractionEnabled = false
+            UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.isUserInteractionEnabled = false
         }
-        
-        let goferDelUrl = APIUrl
-        //AppWebConstants.APIBaseUrl
-        
-        AF.upload(multipartFormData: { (multipartFormData) in
-            for (key, value) in paramDict {
-                multipartFormData.append(String(describing: value).data(using: String.Encoding.utf8, allowLossyConversion: false)!, withName: key)
-            }
-            let fileName1 =  String(Date().timeIntervalSince1970 * 1000) + "\(fileName).jpg"
-            if let data = imgData {
-                multipartFormData.append(data,
-                                         withName: fileName,
-                                         fileName: fileName1,
-                                         mimeType: "image/jpeg")
-            }
-            //Optional for extra parameters
-        },to:"\(goferDelUrl)\(wsMethod)") .response { resp in
-            
-            //
-            let endTime = Date()
-            
-            self.networkChecker(with: startTime, EndTime: endTime, ContentData: resp.data)
-            
-            switch resp.result {
-            case .success(let data):
-                if isToShowProgress {
-                    UberSupport().removeProgress(viewCtrl: viewController)
-                }
-                if isToStopInteraction {
-                    //UIApplication.shared.endIgnoringInteractionEvents()
-                    UIApplication.shared.windows.last?.isUserInteractionEnabled = true
-                }
-                do {
-                    if let responseDict = try JSONSerialization.jsonObject(with: data ?? Data(), options: .mutableContainers) as? [String:Any] {
-                        guard responseDict["error"] == nil else {
-                            self.appDelegate.createToastMessageForAlamofire(responseDict.string("error"), bgColor: .black, textColor: .white, forView: viewController.view)
-                            return
-                        }
-                        
-                        guard responseDict.count > 0 else {
-                            self.appDelegate.createToastMessageForAlamofire("Image upload failed",
-                                                                            bgColor: .black,
-                                                                            textColor: .white,
-                                                                            forView: viewController.view)
-                            return
-                        }
-                        
-                        if (responseDict["status_code"] as? String ?? "" ) == "0" &&
-                            ((responseDict["success_message"] as? String ?? "" ) == "Inactive User" ||
-                             (responseDict["success_message"] as? String ?? "" ) == "The token has been blacklisted" ||
-                             responseDict["success_message"] as? String ?? ""  == "User not found") {
-                            //                        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "k_LogoutUser"), object: nil)
-                            self.appDelegate.createToastMessageForAlamofire("We are having trouble fetching the menu. Please try again.", bgColor: .black, textColor: .white, forView: viewController.view)
-                        }
-                        else {
-                            complete(responseDict as [String : Any] )
-                        }
+
+        // --- THIS IS THE CRITICAL FIX ---
+        // 1. Validate that the base APIUrl is a valid URL before proceeding.
+        guard !APIUrl.isEmpty, let _ = URL(string: APIUrl) else {
+            print("FATAL ERROR: APIUrl is empty or invalid. Request to '\(wsMethod)' aborted.")
+            // Inform the user gracefully instead of crashing.
+            self.appDelegate.createToastMessageForAlamofire("App is not configured correctly. Please restart.", forView: viewController.view)
+            return // Stop the function here to prevent the crash.
+        }
+        // ---------------------------------
+
+        let finalURL = APIUrl + wsMethod
+
+        AF.upload(
+            multipartFormData: { multipartFormData in
+                for (key, value) in paramDict {
+                    // Safely append parameters
+                    if let data = String(describing: value).data(using: .utf8) {
+                        multipartFormData.append(data, withName: key)
                     }
-                } catch {
-                    print("Error")
-                    self.appDelegate.createToastMessageForAlamofire("We are having trouble fetching the menu. Please try again.", bgColor: .black, textColor: .white, forView: viewController.view)
                 }
                 
-            case .failure(let encodingError):
-                print(encodingError)
-                //                if encodingError._code == 4 {
-                //                    self.appDelegate.createToastMessageForAlamofire("We are having trouble fetching the menu. Please try again.", bgColor: .black, textColor: .white, forView: viewController.view)
-                //
-                //                }
-                //                else  if encodingError._code == 13 {
-                //                    self.appDelegate.createToastMessageForAlamofire("No internet connection.".localizedCapitalized, bgColor: .black, textColor: .white, forView: viewController.view)
-                //                } else {
-                //                    self.appDelegate.createToastMessageForAlamofire(encodingError.localizedDescription, bgColor: .black, textColor: .white, forView: viewController.view)
-                //                }
+                if let data = imgData {
+                    let uniqueFileName = "\(Date().timeIntervalSince1970 * 1000)-\(fileName).jpg"
+                    multipartFormData.append(data, withName: fileName, fileName: uniqueFileName, mimeType: "image/jpeg")
+                }
+            },
+            to: finalURL // Use the validated, complete URL
+        )
+        .responseJSON { response in
+            let endTime = Date()
+            self.networkChecker(with: startTime, EndTime: endTime, ContentData: response.data)
+            
+            switch response.result {
+            case .success(let value):
+                // --- THIS IS THE FIX ---
+                // Create a variable to hold our final, correctly-typed dictionary.
+                var responseDict: [String: Any]?
+                
+                // First, try to cast directly to the Swift dictionary type. This is the most common case.
+                if let swiftDict = value as? [String: Any] {
+                    responseDict = swiftDict
+                }
+                // If that fails, try to cast to an NSDictionary (the Objective-C type) and then bridge it to Swift.
+                else if let objcDict = value as? NSDictionary {
+                    responseDict = objcDict as? [String: Any]
+                }
+                
+                // Now, safely unwrap the result. If it's still nil, the response was neither format.
+                guard let finalResponseDict = responseDict else {
+                    print("Error: Failed to parse JSON response. Value was not a dictionary.")
+                    self.appDelegate.createToastMessageForAlamofire("Invalid server response.", forView: viewController.view)
+                    return
+                }
+                // ------------------------
+
+                // From here on, you can safely use `finalResponseDict` knowing it is [String: Any]
+                let message = finalResponseDict["success_message"] as? String ?? ""
+                if (finalResponseDict["status_code"] as? String) == "0" &&
+                    (message == "Inactive User" || message == "The token has been blacklisted" || message == "User not found") {
+                    
+                    NotificationCenter.default.post(name: .AppEventsLoggingResult, object: nil)
+                    self.appDelegate.createToastMessageForAlamofire("Session expired. Please log in again.", forView: viewController.view)
+                    
+                } else if let errorMsg = finalResponseDict["error"] as? String {
+                    self.appDelegate.createToastMessageForAlamofire(errorMsg, forView: viewController.view)
+                } else {
+                    complete(finalResponseDict)
+                }
+
+            case .failure(let error):
+                print("Alamofire Upload Failed: \(error.localizedDescription)")
+                if let urlError = error.asAFError?.underlyingError as? URLError, urlError.code == .notConnectedToInternet {
+                    self.appDelegate.createToastMessageForAlamofire("No internet connection.", forView: viewController.view)
+                } else {
+                    self.appDelegate.createToastMessageForAlamofire("An error occurred while uploading. Please try again.", forView: viewController.view)
+                }
             }
         }
     }

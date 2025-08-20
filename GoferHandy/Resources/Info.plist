@@ -184,7 +184,7 @@
 		<key>PendingStatusColor</key>
 		<string>f09400</string>
 		<key>PrimaryColor</key>
-		<string>F0DA34</string>
+		<string>74C9D5</string>
 		<key>PrimaryTextColor</key>
 		<string>333333</string>
 		<key>PromoColor</key>
@@ -196,7 +196,7 @@
 		<key>TertiaryColor</key>
 		<string>A3A3AB</string>
 		<key>ThemeTextColor</key>
-		<string>F0DA34</string>
+		<string>74C9D5</string>
 	</dict>
 	<key>UIAppFonts</key>
 	<array>

@@ -168,14 +168,29 @@ class HandyHomeView: BaseView {
     var isLoading : Bool = true
     var height : NSLayoutConstraint!
     @IBAction func showAllBtnClicked(_ sender: Any) {
-        self.currentState = self.currentState == .showall ? .hide : .showall
+        // 1. Toggle the state
+        self.currentState = (self.currentState == .showall) ? .hide : .showall
         self.showAllBtn.setTitle(self.currentState.displayText, for: .normal)
-        if self.currentState != .showall {
-            updateProgressView(isHidden: true)
-        } else {
-            orderProgressView.isHidden = orderProgressViewIsHiddenDefault
+
+        // 2. Prepare the new layout style for the collection view's content
+        let newLayout = self.createLayoutForCurrentState()
+
+        // 3. Animate all visual changes together in one coordinated block
+        UIView.animate(withDuration: 0.4, animations: {
+            // A) Animate the hiding/showing of the map and other views
+            self.mapHolderView.superview?.isHidden = (self.currentState == .hide)
+            self.bookWashPostion.isHidden = (self.currentState == .hide)
+            
+            // B) Tell the collection view to animate its cells to the new layout
+            self.servicesCollection.setCollectionViewLayout(newLayout, animated: false) // The parent UIView block handles the animation timing.
+
+        }) { (finished) in
+            // 4. IMPORTANT: Reload data only AFTER the animation is 100% complete.
+            // This is the final step that prevents all conflicts.
+            if finished {
+                self.servicesCollection.reloadData()
+            }
         }
-        self.designUpdate()
     }
     
     func resetMapLocation(location: CLLocation?) {
@@ -209,25 +224,55 @@ class HandyHomeView: BaseView {
     }
     
     func onChangeMapStyle(map: GMSMapView) {
+        // Delay the entire operation to the next run loop cycle.
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+
+            map.clear() // Still a good idea to clear.
+
+            do {
+                let resourceName = self.isDarkStyle ? "map_style_dark" : "mapStyleChanged"
+                if let styleURL = Bundle.main.url(forResource: resourceName, withExtension: "json") {
+                    map.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
+                } else {
+                    print("Style File Not Found: \(resourceName).json")
+                }
+            } catch {
+                print("Can't Open or Apply Style File: \(error)")
+            }
+
+            // Re-add your markers here.
+            // self.addMarkersToMap()
+        }
+    }
+    
+    // Rename this function to reflect its new purpose
+    func loadInitialMapStyle(map: GMSMapView) {
         do {
-            if let styleURL = Bundle.main.url(forResource: self.isDarkStyle ? "map_style_dark" : "mapStyleChanged", withExtension: "json") {
+            // ALWAYS load the light style ("mapStyleChanged.json") for stability.
+            // DO NOT check for isDarkStyle here.map_style_dark
+            if let styleURL = Bundle.main.url(forResource: "mapStyleChanged", withExtension: "json") {
                 map.mapStyle = try GMSMapStyle(contentsOfFileURL: styleURL)
-            } else { print("Style File Not Found") }
-        } catch { print("Can't Open Style File") }
+            } else {
+                print("Stable map style file not found.")
+            }
+        } catch {
+            print("Can't open or apply stable map style: \(error.localizedDescription)")
+        }
     }
     
 
     
     func designUpdate() {
-        if let heightCons = self.heightConstaint { heightCons.isActive = false }
+//        if let heightCons = self.heightConstaint { heightCons.isActive = false }
         self.servicesCollection.alwaysBounceVertical = self.currentState == .hide
         self.servicesCollection.alwaysBounceHorizontal = self.currentState == .showall
-        if self.currentState == .hide {
-            self.height.isActive = false
-        } else {
-            self.height = self.servicesCollection.heightAnchor.constraint(equalToConstant: self.frame.height * 0.2)
-            self.height.isActive = true
-        }
+//        if self.currentState == .hide {
+//            self.height.isActive = false
+//        } else {
+////            self.height = self.servicesCollection.heightAnchor.constraint(equalToConstant: self.frame.height * 0.2)
+//            self.height.isActive = true
+//        }
         self.mapHolderView.superview?.isHidden = self.currentState == .hide
         self.bookWashPostion.isHidden = self.currentState == .hide
         let size = self.servicesCollection.frame.width * 0.25
@@ -244,6 +289,16 @@ class HandyHomeView: BaseView {
         DispatchQueue.main.async {
             self.servicesCollection.reloadData()
         }
+    }
+    
+    private func createLayoutForCurrentState() -> UICollectionViewLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = (self.currentState == .showall) ? .horizontal : .vertical
+        layout.sectionInset = .zero
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 1.0
+        // The delegate method `sizeForItemAt` will provide the actual cell sizes.
+        return layout
     }
     
     @IBAction func doneBtnclicked(_ sender: Any) {
@@ -348,7 +403,7 @@ class HandyHomeView: BaseView {
         self.bookLaterBGView.customColorsUpdate()
         self.booklaterIndicaterIV.backgroundColor = .PrimaryColor
         self.servicesCollection.reloadData()
-        if let map = map { self.onChangeMapStyle(map: map) }
+//        if let map = map { self.onChangeMapStyle(map: map) }
         self.doneBtn.customColorsUpdate()
     }
     
@@ -511,18 +566,37 @@ extension HandyHomeView : UICollectionViewDelegate{
     }
 }
 
-extension HandyHomeView : UICollectionViewDelegateFlowLayout{
+extension HandyHomeView : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let size =  collectionView.frame.width * 0.25
-        if self.currentState == .hide {
-            return CGSize(width: size - 5, height: size * 1.4)
-        } else {
-            
+        
+        guard let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {
+            // Provide a fallback size if something is wrong.
+            return CGSize(width: 80, height: 112)
         }
-        return CGSize(width: size,
-                      height: size * 1.4)
+        
+        // --- The Definitive Fix ---
+        
+        // 1. Define how many items you want in a single row.
+        let itemsPerRow: CGFloat = 4
+        
+        // 2. Get the spacing from the layout object itself.
+        let spacing = layout.minimumInteritemSpacing
+        
+        // 3. Calculate the total width that will be used by the spaces.
+        //    (For 4 items, there are 3 spaces in between).
+        let totalSpacing = spacing * (itemsPerRow - 1)
+        
+        // 4. Calculate the width that is actually available for the cells.
+        let availableWidth = collectionView.bounds.width - totalSpacing
+        
+        // 5. Calculate the width for one cell.
+        //    Using floor() prevents tiny sub-pixel rounding errors that can also break the layout.
+        let cellWidth = floor(availableWidth / itemsPerRow)
+        
+        // 6. Return the final, correct size.
+        return CGSize(width: cellWidth, height: cellWidth * 1.4)
     }
 }
 

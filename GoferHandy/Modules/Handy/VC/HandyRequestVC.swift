@@ -80,10 +80,20 @@ class HandyRequestVC: BaseViewController {
     @objc func beforeExitActions(){
         self.audioTimer?.invalidate()
         self.player?.stop()
+//        guard let jobID = ((UserDefaults.value(for: .current_job_id) ?? 0) as? Int) else { return }
+//        if let vc = self.navigationController?.viewControllers.last {
+//            if let presentedVC = vc.presentedViewController { presentedVC.dismiss(animated: false, completion: nil) }
+//            if vc.isKind(of: HandyRouteVC.self) { guard (vc as! HandyRouteVC).jobID != jobID else { return } }
+//        }
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+//            self.navigationController?.pushViewController(
+//                HandyRouteVC.initWithStory(forJobID: jobID),
+//                animated: true)
+//        })
     }
     @objc
     func requestCancelled(){
-        self.beforeExitActions()
+//        self.beforeExitActions()
         self.exitScreen(animated: true)
     }
     @objc func onCallTimer(){

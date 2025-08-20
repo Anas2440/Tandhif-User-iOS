@@ -93,7 +93,7 @@ let infoPlist = PlistReader<InfoPlistKeys>()
  - note : used in project's All source files (eg: images)
  - warning : Don't Forget to Add Your URL here
  */
-let APIBaseUrl : String = (infoPlist?.value(for: .App_URL) ?? "").replacingOccurrences(of: "\\", with: "")
+let APIBaseUrl : String = "https://tandhif.fr/"//(infoPlist?.value(for: .App_URL) ?? "").replacingOccurrences(of: "\\", with: "")
 /**
  Global_UserType is a Global Variable. Get from info Plist, Change in Configuration File
  - note : used in project's All source files (eg: images)
@@ -280,101 +280,101 @@ extension UIColor {
      PrimaryColor is a Theme Color of the Project
      - note: used in Navigation, images and Button Active
      */
-    open class var PrimaryColor         : UIColor {
+    public class var PrimaryColor         : UIColor {
         get { return UIColor._Colors["PrimaryColor"] ?? UIColor(hex: ThemeColors?.string("PrimaryColor")) }
         set { UIColor._Colors["PrimaryColor"] = newValue } }
     /**
      ThemeTextColor is same as Primary Color
      - note: used in Text Color (Same as ThemeColor)
      */
-    open class var ThemeTextColor       : UIColor {
+    public class var ThemeTextColor       : UIColor {
         get { return UIColor._Colors["ThemeTextColor"] ?? UIColor(hex: ThemeColors?.string("ThemeTextColor")) }
         set { UIColor._Colors["ThemeTextColor"] = newValue } }
     /**
      PrimaryTextColor is useful For Text above the PrimaryColor
      - note: PrimaryTextColor used in Navigation or Button labels
      */
-    open class var PrimaryTextColor     : UIColor { return UIColor(hex: ThemeColors?.string("PrimaryTextColor")) }
+    public class var PrimaryTextColor     : UIColor { return UIColor(hex: ThemeColors?.string("PrimaryTextColor")) }
     /**
      SecondaryColor is useful in background or Primary Contrast Color
      - note: SecondaryColor used in  Label's backgroundl  and Secondary Button's background
      */
-    open class var SecondaryColor       : UIColor { return UIColor(hex: ThemeColors?.string("SecondaryColor")) }
+    public class var SecondaryColor       : UIColor { return UIColor(hex: ThemeColors?.string("SecondaryColor")) }
     /**
      SecondaryTextColor is useful in background or Primary Contrast Color
      - note: SecondaryTextColor used in background Label text and Secondary Button text
      */
-    open class var SecondaryTextColor   : UIColor { return UIColor(hex: ThemeColors?.string("SecondaryTextColor")) }
+    public class var SecondaryTextColor   : UIColor { return UIColor(hex: ThemeColors?.string("SecondaryTextColor")) }
     /**
      TertiaryColor is useful Inactive or Other State of Active
      - note: TertiaryColor used in inactive Lables and Views
      */
-    open class var TertiaryColor        : UIColor { return UIColor(hex: ThemeColors?.string("TertiaryColor")) }
+    public class var TertiaryColor        : UIColor { return UIColor(hex: ThemeColors?.string("TertiaryColor")) }
     /**
      InactiveTextColor is useful Inactive or Other State of Active
      - note: InactiveTextColor used in inactive Lables text and Button Text
      */
-    open class var InactiveTextColor    : UIColor { return UIColor(hex: ThemeColors?.string("InactiveTextColor")) }
+    public class var InactiveTextColor    : UIColor { return UIColor(hex: ThemeColors?.string("InactiveTextColor")) }
     /**
      IndicatorColor is useful For Indication
      - note: IndicatorColor used in Indicator View's
      */
-    open class var IndicatorColor       : UIColor { return UIColor(hex: ThemeColors?.string("IndicatorColor")) }
+    public class var IndicatorColor       : UIColor { return UIColor(hex: ThemeColors?.string("IndicatorColor")) }
     /**
      BoxColor is useful For Text Filed  in DarkMode Time
      - note: PrimaryTextColor used in DarkMode Textfiled and Lable Differentiate
      */
-    open class var BoxColor             : UIColor { return UIColor(hex: ThemeColors?.string("BoxColor")) }
+    public class var BoxColor             : UIColor { return UIColor(hex: ThemeColors?.string("BoxColor")) }
     /**
      CancelledStatusColor is useful For Canceled Status Color
      - note: CancelledStatusColor used in history cancelled state Color. eg: State  (canceled)
      */
-    open class var CancelledStatusColor : UIColor { return UIColor(hex: ThemeColors?.string("CancelledStatusColor")) }
+    public class var CancelledStatusColor : UIColor { return UIColor(hex: ThemeColors?.string("CancelledStatusColor")) }
     /**
      CompletedStatusColor is useful For Completed Status Color
      - note: CompletedStatusColor used in history completed state Color. eg: State  (completed)
      */
-    open class var CompletedStatusColor : UIColor { return UIColor(hex: ThemeColors?.string("CompletedStatusColor")) }
+    public class var CompletedStatusColor : UIColor { return UIColor(hex: ThemeColors?.string("CompletedStatusColor")) }
     /**
      ErrorColor is useful For Error Time
      - note: ErrorColor used in Error Labels and Error Views
      */
-    open class var ErrorColor           : UIColor { return UIColor(hex: ThemeColors?.string("ErrorColor")) }
+    public class var ErrorColor           : UIColor { return UIColor(hex: ThemeColors?.string("ErrorColor")) }
     /**
      PendingStatusColor is useful For Pending Status Color
      - note: PendingStatusColor used in history pending state Color. eg: State  (pending,Rating,scheduled)
      */
-    open class var PendingStatusColor   : UIColor { return UIColor(hex: ThemeColors?.string("PendingStatusColor")) }
+    public class var PendingStatusColor   : UIColor { return UIColor(hex: ThemeColors?.string("PendingStatusColor")) }
     /**
      PromoColor is useful For Promo Variables
      - note: PromoColor used in Promo Lables and Promo Background Views
      */
-    open class var PromoColor           : UIColor { return UIColor(hex: ThemeColors?.string("PromoColor")) }
+    public class var PromoColor           : UIColor { return UIColor(hex: ThemeColors?.string("PromoColor")) }
     /**
      DarkModeBackground is useful For DarkMode Time
      - note: DarkModeBackground used in DarkMode Time View's Bacground Color
      */
-    open class var DarkModeBackground   : UIColor { return UIColor(hex: ThemeColors?.string("DarkModeBackground")) }
+    public class var DarkModeBackground   : UIColor { return UIColor(hex: ThemeColors?.string("DarkModeBackground")) }
     /**
      DarkModeTextColor is useful For DarkMode Time
      - note: DarkModeTextColor used in DarkMode Time View's Label Text or Button's Text
      */
-    open class var DarkModeTextColor    : UIColor { return UIColor(hex: ThemeColors?.string("DarkModeTextColor")) }
+    public class var DarkModeTextColor    : UIColor { return UIColor(hex: ThemeColors?.string("DarkModeTextColor")) }
     /**
      LightModeTextColor is useful For LightMode Time
      - note: LightModeTextColor used in LightMode Time View's Label Text
      */
-    open class var LightModeTextColor   : UIColor { return UIColor(hex: ThemeColors?.string("LightModeTextColor")) }
+    public class var LightModeTextColor   : UIColor { return UIColor(hex: ThemeColors?.string("LightModeTextColor")) }
     /**
      DarkModeBorderColor is useful in Darkmode Time
      - note: DarkModeBorderColor used in View's Border During DarkMode Time
      */
-    open class var DarkModeBorderColor  : UIColor { return UIColor(hex: ThemeColors?.string("DarkModeBorderColor")) }
+    public class var DarkModeBorderColor  : UIColor { return UIColor(hex: ThemeColors?.string("DarkModeBorderColor")) }
     /**
      LightWhiteColor is useful Inactive or Other State of Active
      - note: LightWhiteColor used in inactive Views
      */
-    open class var LightWhiteColor      : UIColor { return UIColor(hex: ThemeColors?.string("LightWhiteColor")) }
+    public class var LightWhiteColor      : UIColor { return UIColor(hex: ThemeColors?.string("LightWhiteColor")) }
     /**
      ThemeYellow is useful For Rating Stars
      - note: ThemeYellow used in Rating Buttons or Views

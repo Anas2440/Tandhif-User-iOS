@@ -10,7 +10,7 @@ target 'GoferHandy' do
   pod 'PaymentHelper','~> 0.0.6'
   
   pod 'AGPullView'
-  pod 'GoogleMaps','~> 3.5.0'
+  pod 'GoogleMaps'#,'~> 3.5.0'
   pod 'GooglePlaces','~> 3.5.0'
   
   pod 'SDWebImage'

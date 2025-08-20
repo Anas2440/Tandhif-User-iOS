@@ -260,7 +260,7 @@
                                                     <action selector="btnSelectedServicesClk:" destination="nMn-bQ-dLW" eventType="touchUpInside" id="Obu-dH-KJM"/>
                                                 </connections>
                                             </button>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zs2-dh-z3B" customClass="Comm">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zs2-dh-z3B">
                                                 <rect key="frame" x="0.0" y="182" width="384" height="179"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="OyF-Hg-mdi">
@@ -583,7 +583,7 @@
                             <outlet property="chooseYourWashLbl" destination="Hi0-H4-uDx" id="QMX-lz-I8T"/>
                             <outlet property="doneBtn" destination="miG-Ea-HR7" id="KbF-XX-cKQ"/>
                             <outlet property="headerView" destination="WHi-o4-Fcu" id="CzA-6w-Kh8"/>
-                            <outlet property="heightConstaint" destination="9sf-6T-Jhl" id="6jZ-Tt-WlL"/>
+                            <outlet property="heightConstaint" destination="9sf-6T-Jhl" id="wDe-8q-GKL"/>
                             <outlet property="imgOrderProgressDriver" destination="vxv-OG-5uv" id="UFu-9F-CAl"/>
                             <outlet property="lblOrderDetail" destination="bS5-Ws-FA8" id="20n-4D-rI7"/>
                             <outlet property="lblOrderStatus" destination="AXf-wN-Q2i" id="Rpt-mg-uiz"/>
@@ -4604,7 +4604,7 @@ dfdsfds</string>
             <color red="0.32899999618530273" green="0.32400000095367432" blue="0.4779999852180481" alpha="0.33000001311302185" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ThemeYellow">
-            <color red="0.94117647058823528" green="0.85490196078431369" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.45490196078431372" green="0.78823529411764703" blue="0.83529411764705885" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <systemColor name="darkTextColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -258,11 +258,17 @@ class HandyJobDetailModel: Codable , Equatable {
 
 
 enum PriceType: String, Codable {
-    //  RawValue is API Data only
     case fixed = "Fixed"
     case hourly = "Hourly"
-    case distance = "Time & Distance"
+    case distance = "Distance"
+    case squareMeter = "Square Meter"
     case none
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        let rawString = try container.decode(String.self)
+        self = PriceType(rawValue: rawString) ?? .none
+    }
 }
 
 class JobRating:Codable , Equatable {

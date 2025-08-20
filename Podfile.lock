@@ -1677,7 +1677,7 @@ DEPENDENCIES:
   - Firebase/Messaging
   - Firebase/RemoteConfig
   - GeoFire
-  - GoogleMaps (~> 3.5.0)
+  - GoogleMaps
   - GooglePlaces (~> 3.5.0)
   - gRPC-Core
   - gRPC-ProtoRPC
@@ -1847,6 +1847,6 @@ SPEC CHECKSUMS:
   StripeUICore: 0e0f3005fd3027dad3d3d77927f371d5fe4eb9ac
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
 
-PODFILE CHECKSUM: c736a347833ab4eea3808f478bd1dd641165c2b0
+PODFILE CHECKSUM: 6faeaf1831c6eb9032e286e969a0ed5a144187eb
 
 COCOAPODS: 1.16.2

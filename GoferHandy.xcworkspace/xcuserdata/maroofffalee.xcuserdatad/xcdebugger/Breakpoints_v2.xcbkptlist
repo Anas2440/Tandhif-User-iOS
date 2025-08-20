@@ -132,20 +132,6 @@
                </BreakpointActionProxy>
             </Actions>
             <Locations>
-               <Location
-                  uuid = "6AA8F68C-5E3F-4919-9FA1-71BC96EE235F - 2e2130f0c414e637"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "+[FValidation validateFrom:validPathString:]"
-                  moduleName = "FirebaseDatabase"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/maroofffalee/Desktop/Anas%20Parekh/TandhifUser-iOS/Pods/FirebaseDatabase/FirebaseDatabase/Sources/Utilities/FValidation.m"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "77"
-                  endingLineNumber = "77">
-               </Location>
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
@@ -239,6 +225,22 @@
             breakpointStackSelectionBehavior = "1"
             scope = "1"
             stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CBC59191-D46F-4ACB-9E0B-341E208061D7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoferHandy/Resources/Language/Language.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1436"
+            endingLineNumber = "1436"
+            landmarkName = "init(from:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
