@@ -129,9 +129,9 @@ class MenuVC: BaseViewController, PromoValuePassedProtocol {
                                         image: "profile-icon-select",
                                         VC: ViewProfileVC.initWithStory(accountVM: accountViewModel ?? AccountViewModel()))
         
-        let paymentItem = MenuItemModel(withTitle: LangCommon.paymentStatus.capitalized,
-                                        image: "Payment",
-                                        VC: SelectPaymentMethodVC.initWithStory())
+//        let paymentItem = MenuItemModel(withTitle: LangCommon.paymentStatus.capitalized,
+//                                        image: "Payment",
+//                                        VC: SelectPaymentMethodVC.initWithStory())
         
         let tripView = HandyTripHistoryVC.initWithStory()
 //        tripView.newTap = .completed
@@ -198,11 +198,12 @@ class MenuVC: BaseViewController, PromoValuePassedProtocol {
         // Common Pages
         handyItems.append(profileItem)
         handyItems.append(listTripsItem)
-        handyItems.append(paymentItem)
+//        handyItems.append(paymentItem)
         handyItems.append(walletItem)
         handyItems.append(promoItem)
-        handyItems.append(emergencyContactItem)
         handyItems.append(referralItem)
+//        handyItems.append(emergencyContactItem)
+        
        
         // Handy Splitup Start
         if AppWebConstants.businessType != .DeliveryAll {
@@ -221,7 +222,7 @@ class MenuVC: BaseViewController, PromoValuePassedProtocol {
         handyItems.append(settingItem)
         
         if Shared.instance.supportArray?.count != 0 {
-            handyItems.append(supportItem)
+//            handyItems.append(supportItem)
         }
 
         return handyItems

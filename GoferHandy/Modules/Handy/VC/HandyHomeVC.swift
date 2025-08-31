@@ -350,15 +350,11 @@ class HandyHomeVC: BaseViewController {
         self.handyHomeView.noServiceFoundLbl.adjustsFontSizeToFitWidth = true
         self.handyHomeView.noServiceFoundLbl.isHidden = true
         self.handyHomeView.chooseStack.isHidden = false
-        
+
         self.handyBookingVM?.wsToGetServiceListDetails(param: param, { [weak self] (result) in
-            
-            // ====================== THE FIX: START ======================
-            // Switch to the main thread before touching any UI components or data sources.
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                
-                // Now that we are on the main thread, it's safe to update the UI.
+
                 Shared.instance.removeLoaderInWindow()
                 self.Refresher.endRefreshing()
                 self.isSericeAPIInProgress = false
@@ -366,43 +362,43 @@ class HandyHomeVC: BaseViewController {
 
                 switch result {
                 case .success(let response):
+                    // ====================== MODIFIED LOGIC: START ======================
+                    
+                    // 1. Handle "Previously Booked" services.
+                    // NOTE: Add corresponding properties and UI elements to your view.
+                    self.handyHomeView.previousBookedServices = response.previousBooked
+                    self.handyHomeView.previousBookedSectionView.isHidden = response.previousBooked.isEmpty
+                    self.handyHomeView.previousBookedCollectionView.reloadData()
+                    
+                    // 2. Handle "All Services" (existing logic is preserved).
                     if !response.services.isEmpty {
-                        // 1. Keep a copy of the cart with the user's current selections.
                         let oldSelections = selectedServicesCart
-                        
-                        // 2. Clear and rebuild the cart's structure based on the fresh API data.
-                        // This ensures the cart always reflects the available services.
                         selectedServicesCart.removeAll()
                         for service in response.services {
                             let new_service = SelectedService(service_id: service.serviceID,
                                                               service_name: service.serviceName,
                                                               service_image: service.imageIcon,
-                                                              selectedCategories: []) // Start with empty categories
+                                                              selectedCategories: [])
                             selectedServicesCart.append(new_service)
                         }
                         
-                        // 3. Restore the user's selections from the old copy.
-                        // We iterate through the newly created cart.
                         for i in 0..<selectedServicesCart.count {
                             let newServiceId = selectedServicesCart[i].service_id
-                            // We find if this service existed in the old cart and had selections.
                             if let oldMatchingService = oldSelections.first(where: { $0.service_id == newServiceId }) {
-                                // If it did, we copy its selected categories over.
                                 selectedServicesCart[i].selectedCategories = oldMatchingService.selectedCategories
                             }
                         }
                         
-                        // 4. Now, update the UI with the corrected data.
                         self.handyHomeView.services = response.services
                         self.isSingleCategory = response.services.count == 1
-                        self.handleSelectedServices() // This will now show the correct count.
+                        self.handleSelectedServices()
                         
                         self.handyHomeView.servicesCollection.isHidden = false
                         self.handyHomeView.noServiceFoundLbl.isHidden = true
                         self.handyHomeView.chooseStack.isHidden = false
                         
                     } else {
-                        // Handle the "no services found" case
+                        // Handle case where no services are found.
                         self.handyHomeView.services.removeAll()
                         self.handyHomeView.servicesCollection.isHidden = true
                         self.handyHomeView.noServiceFoundLbl.isHidden = false
@@ -410,19 +406,25 @@ class HandyHomeVC: BaseViewController {
                         self.handyHomeView.noServiceFoundLbl.text = response.statusMessage
                     }
                     
-                    // 3. Finally, reload the collection view ONCE with the new data.
+                    // 3. Reload the main services collection view.
                     self.handyHomeView.servicesCollection.reloadData()
 
                 case .failure(let error):
-                    // Still on the main thread, safe to show alerts or update UI
+                    // On failure, clear all data and hide all sections.
                     print(error.localizedDescription)
+                    self.handyHomeView.services.removeAll()
+                    self.handyHomeView.previousBookedServices.removeAll() // <-- Clear this too
+                    
+                    self.handyHomeView.previousBookedSectionView.isHidden = true // <-- Hide section
+                    
                     self.handyHomeView.noServiceFoundLbl.text = "Error loading services."
                     self.handyHomeView.noServiceFoundLbl.isHidden = false
-                    self.handyHomeView.services.removeAll()
+                    
                     self.handyHomeView.servicesCollection.reloadData()
+                    self.handyHomeView.previousBookedCollectionView.reloadData() // <-- Reload this too
                 }
+                // ====================== MODIFIED LOGIC: END ======================
             }
-            // ====================== THE FIX: END ======================
         })
     }
     func callTimer(){

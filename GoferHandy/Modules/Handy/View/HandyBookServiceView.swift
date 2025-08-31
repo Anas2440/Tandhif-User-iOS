@@ -175,7 +175,7 @@ class HandyBookServiceView: BaseView {
         //        self.servicePriceLbl.text = "\(currency) \(self.bookServiceVC.serviceItem.baseFare.description)"
         self.servicePriceLbl.text = "\(currency)\(baseFareStr)"
         
-        if (self.priceType == .fixed || self.priceType == .squareMeter) && Int(self.bookServiceVC.serviceItem.maximumQuantity.toInt()) > 1 {
+        if (self.priceType == .fixed || self.priceType == .squareMeter || self.priceType == .linearMeter) && Int(self.bookServiceVC.serviceItem.maximumQuantity.toInt()) > 1 {
             //            self.ItemCountViewHeightConstraint.constant = 40
             self.countHolderView.isHidden = false
         }else {
@@ -249,6 +249,22 @@ class HandyBookServiceView: BaseView {
             // Add a helpful note for the user
             self.noteLbl.text = "[ Note: Final price is based on the total area selected. ]"
 
+        case .linearMeter:
+            self.baseFareView.isHidden = false
+            self.hourlyChargeView.isHidden = true
+            self.estimatedChargeView.isHidden = true
+            self.lineLbl.isHidden = true
+            self.noteLbl.isHidden = false
+            
+            // Set the title for the linear meter rate
+            self.baseFareTitleLbl.text = "Price Per Linear Meter" // Or use LangCommon key
+            self.baseFarePriceLbl.text = "\(currency)\(baseFareStr)"
+            
+            // Hide the main service charge view
+            self.serviceChargeView.isHidden = true
+            
+            // Add a helpful note for the user
+            self.noteLbl.text = "[ Note: Final price is based on the total length selected. ]" // Or use LangCommon key
         case .none:
             self.noteLbl.isHidden = true
         }

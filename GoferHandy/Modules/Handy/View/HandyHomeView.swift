@@ -11,6 +11,7 @@ import SDWebImage
 import GoogleMaps
 import GooglePlaces
 import CoreLocation
+import MapKit
 
 var selectedServicesCart = [SelectedService]()
 
@@ -35,6 +36,7 @@ class HandyHomeView: BaseView {
     var handyHomeVC : HandyHomeVC!
     
     var services : [Service] = []
+    var previousBookedServices : [Service] = []
     
     var currentState : HomeScreenState = .showall
     
@@ -114,6 +116,10 @@ class HandyHomeView: BaseView {
     //MARK: --- button for selectedService
     @IBOutlet weak var btnSelectedServices: UIButton!
     
+    @IBOutlet weak var previousBookedCollectionView: UICollectionView!
+    @IBOutlet weak var previousBookedSectionView: UIView!
+    @IBOutlet weak var mapKitMapView: MKMapView!
+    
     var map : GMSMapView?
     private var addressDetails : MyLocationModel? {
         didSet {
@@ -134,7 +140,8 @@ class HandyHomeView: BaseView {
         self.profileLocation.getAddress({[weak self] address in
             self?.locationLbl.text = address
         })
-        self.resetMapLocation(location: profileLocation)
+        self.updateMapCamera(location: profileLocation, animated: true)
+        //        self.resetMapLocation(location: profileLocation)
     }
     
     private var previousLocation : CLLocation?
@@ -151,15 +158,18 @@ class HandyHomeView: BaseView {
                                      longitude: userLocation?.coordinate.longitude ?? 0.0))
             if let userLocation = userLocation,
                let previousLocation = previousLocation {
-                if userLocation != previousLocation {
-                    resetMapLocation(location: userLocation)
+                if userLocation.distance(from: previousLocation) > 10 { // Update only on significant change
+                    // resetMapLocation(location: userLocation) // <-- COMMENTED OUT
+                    updateMapCamera(location: userLocation, animated: true) // <-- ADDED
                 }
             } else {
-                resetMapLocation(location: profileLocation)
+                // resetMapLocation(location: profileLocation) // <-- COMMENTED OUT
+                updateMapCamera(location: profileLocation, animated: false) // <-- ADDED
             }
             previousLocation = userLocation
         }
     }
+    
     var userZoom : Float = 16.5 {
         didSet { print("Zoom Modified") }
     }
@@ -171,65 +181,109 @@ class HandyHomeView: BaseView {
         // 1. Toggle the state
         self.currentState = (self.currentState == .showall) ? .hide : .showall
         self.showAllBtn.setTitle(self.currentState.displayText, for: .normal)
-
+        
         // 2. Prepare the new layout style for the collection view's content
         let newLayout = self.createLayoutForCurrentState()
-
+        
         // 3. Animate all visual changes together in one coordinated block
-        UIView.animate(withDuration: 0.4, animations: {
-            // A) Animate the hiding/showing of the map and other views
-            self.mapHolderView.superview?.isHidden = (self.currentState == .hide)
-            self.bookWashPostion.isHidden = (self.currentState == .hide)
-            
-            // B) Tell the collection view to animate its cells to the new layout
-            self.servicesCollection.setCollectionViewLayout(newLayout, animated: false) // The parent UIView block handles the animation timing.
-
-        }) { (finished) in
-            // 4. IMPORTANT: Reload data only AFTER the animation is 100% complete.
-            // This is the final step that prevents all conflicts.
-            if finished {
-                self.servicesCollection.reloadData()
-            }
+        //        UIView.animate(withDuration: 0.4, animations: {
+        
+        // A) SAFELY activate/deactivate the constraint using optional chaining (?).
+        //    This prevents a crash if the outlet is ever disconnected again.
+        if let heightCons = self.heightConstaint { heightCons.isActive = false }
+        self.servicesCollection.alwaysBounceVertical = self.currentState == .hide
+        self.servicesCollection.alwaysBounceHorizontal = self.currentState == .showall
+        if self.currentState == .hide {
+            self.height.isActive = false
+        } else {
+            self.height = self.servicesCollection.heightAnchor.constraint(equalToConstant: 170.0)
+            self.height.isActive = true
         }
+        self.previousBookedSectionView.isHidden = (self.currentState == .hide)
+        self.mapHolderView.superview?.isHidden = (self.currentState == .hide)
+        
+        // B) Animate the hiding/showing of other views
+        self.bookWashPostion.isHidden = (self.currentState == .hide)
+        self.serviceBarView.superview?.isHidden = (self.currentState == .hide)
+        
+        // C) Tell the collection view to use the new layout
+        self.servicesCollection.setCollectionViewLayout(newLayout, animated: false)
+        
+        // D) Animate the layout changes.
+        self.layoutIfNeeded()
+        
+        //        }) { (finished) in
+        //            // 4. Reload data only AFTER the animation is 100% complete.
+        //            if finished {
+        self.servicesCollection.reloadData()
+        //            }
+        //        }
     }
     
-    func resetMapLocation(location: CLLocation?) {
-        guard let map = map,
-              let location = location else { print("Map or Location not Correct") ; return }
-        let camera = GMSCameraPosition(target: location.coordinate,
-                                       zoom: isShowUserLoc ? userZoom : map.camera.zoom)
-        map.animate(to: camera)
+    //    func resetMapLocation(location: CLLocation?) {
+    //        guard let map = map,
+    //              let location = location else { print("Map or Location not Correct") ; return }
+    //        let camera = GMSCameraPosition(target: location.coordinate,
+    //                                       zoom: isShowUserLoc ? userZoom : map.camera.zoom)
+    //        map.animate(to: camera)
+    //    }
+    
+    //    func addMap() {
+    //        let mapView = GMSMapView()
+    //        self.mapHolderView.addSubview(mapView)
+    //        self.mapHolderView.sendSubviewToBack(mapView)
+    //        self.onChangeMapStyle(map: mapView)
+    //        mapView.anchor(toView: self.mapHolderView, leading: 0, trailing: 0, top: 0, bottom: 0)
+    //        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+    //            mapView.cornerRadius = 15
+    //            self?.mapHolderView.cornerRadius = 15
+    //            self?.mapHolderView.elevate(2)
+    //        }
+    //        mapView.delegate = self
+    //        self.map = mapView
+    //    }
+    
+    //    func removeMap() {
+    //        DispatchQueue.main.async { [weak self] in
+    //            self?.map?.removeFromSuperview()
+    //            self?.map = nil
+    //        }
+    //    }
+    
+    func setupMapView() {
+        mapKitMapView.delegate = self
+        mapKitMapView.mapType = .standard
+        
+        // Enable user interaction for the "explore" feel
+        mapKitMapView.isZoomEnabled = true
+        mapKitMapView.isScrollEnabled = true
+        mapKitMapView.isRotateEnabled = true
+        mapKitMapView.isPitchEnabled = true
+        
+        // Style the map view
+        mapKitMapView.layer.cornerRadius = 15
     }
     
-    func addMap() {
-        let mapView = GMSMapView()
-        self.mapHolderView.addSubview(mapView)
-        self.mapHolderView.sendSubviewToBack(mapView)
-        self.onChangeMapStyle(map: mapView)
-        mapView.anchor(toView: self.mapHolderView, leading: 0, trailing: 0, top: 0, bottom: 0)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
-            mapView.cornerRadius = 15
-            self?.mapHolderView.cornerRadius = 15
-            self?.mapHolderView.elevate(2)
-        }
-        mapView.delegate = self
-        self.map = mapView
-    }
-    
-    func removeMap() {
-        DispatchQueue.main.async { [weak self] in
-            self?.map?.removeFromSuperview()
-            self?.map = nil
-        }
+    func updateMapCamera(location: CLLocation?, animated: Bool) {
+        guard let location = location else { return }
+        
+        let camera = MKMapCamera(
+            lookingAtCenter: location.coordinate,
+            fromDistance: 2000, // Distance in meters (2km)
+            pitch: 60,           // Angle for 3D effect
+            heading: 0           // Direction (0 is North)
+        )
+        
+        mapKitMapView.setCamera(camera, animated: animated)
     }
     
     func onChangeMapStyle(map: GMSMapView) {
         // Delay the entire operation to the next run loop cycle.
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-
+            
             map.clear() // Still a good idea to clear.
-
+            
             do {
                 let resourceName = self.isDarkStyle ? "map_style_dark" : "mapStyleChanged"
                 if let styleURL = Bundle.main.url(forResource: resourceName, withExtension: "json") {
@@ -240,7 +294,7 @@ class HandyHomeView: BaseView {
             } catch {
                 print("Can't Open or Apply Style File: \(error)")
             }
-
+            
             // Re-add your markers here.
             // self.addMarkersToMap()
         }
@@ -261,18 +315,18 @@ class HandyHomeView: BaseView {
         }
     }
     
-
+    
     
     func designUpdate() {
-//        if let heightCons = self.heightConstaint { heightCons.isActive = false }
+        //        if let heightCons = self.heightConstaint { heightCons.isActive = false }
         self.servicesCollection.alwaysBounceVertical = self.currentState == .hide
         self.servicesCollection.alwaysBounceHorizontal = self.currentState == .showall
-//        if self.currentState == .hide {
-//            self.height.isActive = false
-//        } else {
-////            self.height = self.servicesCollection.heightAnchor.constraint(equalToConstant: self.frame.height * 0.2)
-//            self.height.isActive = true
-//        }
+        //        if self.currentState == .hide {
+        //            self.height.isActive = false
+        //        } else {
+        //            self.height = 170//self.servicesCollection.heightAnchor.constraint(equalToConstant: self.frame.height * 0.2)
+        //            self.height.isActive = true
+        //        }
         self.mapHolderView.superview?.isHidden = self.currentState == .hide
         self.bookWashPostion.isHidden = self.currentState == .hide
         let size = self.servicesCollection.frame.width * 0.25
@@ -320,12 +374,12 @@ class HandyHomeView: BaseView {
         switch AppWebConstants.businessType {
         case .Services:
             // Handy Splitup End
-                if let vc = self.handyHomeVC.navigationController?.viewControllers.last ,
+            if let vc = self.handyHomeVC.navigationController?.viewControllers.last ,
                vc.isKind(of: HandyRouteVC.self) {
                 guard (vc as! HandyRouteVC).jobID != job_id else { return }
             }
             let vc = HandyRouteVC.initWithStory(forJobID: job_id)
-                self.handyHomeVC.navigationController?.pushViewController(vc, animated: true)
+            self.handyHomeVC.navigationController?.pushViewController(vc, animated: true)
             // Handy Splitup Start
         default:
             print("Hello")
@@ -360,14 +414,14 @@ class HandyHomeView: BaseView {
     
     override func willAppear(baseVC: BaseViewController) {
         super.willAppear(baseVC: baseVC)
-        self.addMap()
+        //        self.addMap()
         self.isShowUserLoc = true
         self.handyHomeVC.handleSelectedServices()
     }
     
     override func willDisappear(baseVC: BaseViewController) {
         super.willDisappear(baseVC: baseVC)
-        self.removeMap()
+        //        self.removeMap()
     }
     
     override func didAppear(baseVC: BaseViewController) {
@@ -403,11 +457,13 @@ class HandyHomeView: BaseView {
         self.bookLaterBGView.customColorsUpdate()
         self.booklaterIndicaterIV.backgroundColor = .PrimaryColor
         self.servicesCollection.reloadData()
-//        if let map = map { self.onChangeMapStyle(map: map) }
+        //        if let map = map { self.onChangeMapStyle(map: map) }
         self.doneBtn.customColorsUpdate()
     }
     
     func initView(){
+        self.setupMapView() // <-- ADDED
+        
         self.bookLaterBGView.isHidden = true
         self.bookLaterBGViewHeight.constant = 0
         self.servicesCollection.delegate = self
@@ -418,10 +474,18 @@ class HandyHomeView: BaseView {
                                          for: .editingChanged)
         self.serviceBarView.cornerRadius = 10
         self.serviceBarView.elevate(2)
-//        self.servicesCollection.register(UINib(nibName: "HomeServicesHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier:"HomeServicesHeader")
+        //        self.servicesCollection.register(UINib(nibName: "HomeServicesHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier:"HomeServicesHeader")
         self.servicesCollection.register(UINib(nibName: "HandyHomeServiceCVC",
                                                bundle: nil),
                                          forCellWithReuseIdentifier: "HandyHomeServiceCVC")
+        
+        // --- Setup for previousBookedCollectionView --- // <-- ADDED THIS BLOCK
+        self.previousBookedCollectionView.delegate = self
+        self.previousBookedCollectionView.dataSource = self
+        self.previousBookedCollectionView.register(UINib(nibName: "HandyHomeServiceCVC",
+                                                         bundle: nil),
+                                                   forCellWithReuseIdentifier: "HandyHomeServiceCVC")
+        // --- END OF ADDED BLOCK ---
         self.bookNowOrBookLaterBtn.isHidden = true
         self.serviceSearchView.placeholder = LangHandy.searchServices
         self.bookNowOrBookLaterBtn.setTitle(" \(LangHandy.bookLater) ", for: .normal)
@@ -441,7 +505,7 @@ class HandyHomeView: BaseView {
         }
         
     }
-   
+    
     func initLanguage() {
         self.youAreInLbl.text = LangCommon.youAreIn.capitalized
         self.chooseYourWashLbl.text = LangCommon.choostYourWash.isEmpty ? "Choose Your Wash" : LangCommon.choostYourWash
@@ -461,11 +525,11 @@ class HandyHomeView: BaseView {
         }
     }
     
-  // Test Comment
+    // Test Comment
     //MARK:- UDF
     func userLocationCheck(from profile : UserProfileDataModel) {
         self.profileLocation = profile.myCurrentLocation
-        self.resetMapLocation(location: self.profileLocation)
+        //        self.resetMapLocation(location: self.profileLocation)
         self.isShowUserLoc = false
         // User Loacation Check From API Call
         if profile.userLocaitonIsAvailable {
@@ -476,10 +540,10 @@ class HandyHomeView: BaseView {
             // If User Locaction is Not Presented in API,Show an Alert to Remind the User to Set Location
             self.handyHomeVC.commonAlert.setupAlert(alert: LangCommon.appName,
                                                     alertDescription: LangCommon.locationPermissionDescription
-                                                        + " "
-                                                        + LangCommon.appName
-                                                        + " "
-                                                        + LangCommon.toAccessLocation,
+                                                    + " "
+                                                    + LangCommon.appName
+                                                    + " "
+                                                    + LangCommon.toAccessLocation,
                                                     okAction: LangCommon.ok.capitalized,
                                                     cancelAction: LangCommon.cancel.capitalized,
                                                     userImage: nil)
@@ -530,41 +594,76 @@ class HandyHomeView: BaseView {
 extension HandyHomeView : UICollectionViewDataSource{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        let count = self.relatedWords.count
-        let isNodataNeed = count == 0 && !self.handyHomeVC.Refresher.isRefreshing && self.noServiceFoundLbl.isHidden
-        self.chooseStack.isHidden = !self.noServiceFoundLbl.isHidden || count == 0
-        if isNodataNeed && (isFilterAvailable || !self.isLoading)  {
-            let placeholderLbl = PrimaryColoredHeaderLabel()
-            placeholderLbl.textAlignment = .center
-            placeholderLbl.text = LangCommon.noDataFound
-            placeholderLbl.customColorsUpdate()
-            collectionView.backgroundView = placeholderLbl
-        } else {
-            collectionView.backgroundView = nil
+        // --- MODIFIED: Handle both collection views ---
+        if collectionView == self.previousBookedCollectionView {
+            return self.previousBookedServices.count
+        } else { // This is for servicesCollection
+            let count = self.relatedWords.count
+            let isNodataNeed = count == 0 && !self.handyHomeVC.Refresher.isRefreshing && self.noServiceFoundLbl.isHidden
+            self.chooseStack.isHidden = !self.noServiceFoundLbl.isHidden || count == 0
+            if isNodataNeed && (isFilterAvailable || !self.isLoading)  {
+                let placeholderLbl = PrimaryColoredHeaderLabel()
+                placeholderLbl.textAlignment = .center
+                placeholderLbl.text = LangCommon.noDataFound
+                placeholderLbl.customColorsUpdate()
+                collectionView.backgroundView = placeholderLbl
+            } else {
+                collectionView.backgroundView = nil
+            }
+            return count
         }
-        return count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell : HandyHomeServiceCVC = collectionView.dequeueReusableCell(withReuseIdentifier: "HandyHomeServiceCVC", for: indexPath) as! HandyHomeServiceCVC
-        guard let item = relatedWords.value(atSafe: indexPath.row) else{return cell}
-        cell.serviceIV.sd_setImage(with: URL(string: item.imageIcon), completed: nil)
-        cell.serviceNameLbl.text = item.serviceName
+        
+        // --- MODIFIED: Provide data based on which collection view is asking ---
+        let item: Service?
+        if collectionView == self.previousBookedCollectionView {
+            item = previousBookedServices.value(atSafe: indexPath.row)
+        } else {
+            item = relatedWords.value(atSafe: indexPath.row)
+        }
+        
+        guard let serviceItem = item else { return cell }
+        
+        cell.serviceIV.sd_setImage(with: URL(string: serviceItem.imageIcon), completed: nil)
+        cell.serviceNameLbl.text = serviceItem.serviceName
         cell.serviceIV.contentMode = .scaleAspectFill
         cell.themeChange()
+        
         return cell
     }
-    
 }
 
+// MARK: - UICollectionViewDelegate // <-- MODIFIED SECTION
 extension HandyHomeView : UICollectionViewDelegate{
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let service = self.relatedWords.value(atSafe: indexPath.item) else {return}
+        // --- MODIFIED: Get the service from the correct array ---
+        let service: Service?
+        if collectionView == self.previousBookedCollectionView {
+            service = self.previousBookedServices.value(atSafe: indexPath.item)
+        } else {
+            service = self.relatedWords.value(atSafe: indexPath.item)
+        }
+        
+        guard let selectedService = service else { return }
+        
+        // The rest of the logic is the same for both
         self.endEditing(true)
-        self.selectedServiceName = service.serviceName
-        self.handyHomeVC.navigateToServiceListVC(using: service)
+        self.selectedServiceName = selectedService.serviceName
+        self.handyHomeVC.navigateToServiceListVC(using: selectedService)
     }
 }
+
+//extension HandyHomeView : UICollectionViewDelegate{
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        guard let service = self.relatedWords.value(atSafe: indexPath.item) else {return}
+//        self.endEditing(true)
+//        self.selectedServiceName = service.serviceName
+//        self.handyHomeVC.navigateToServiceListVC(using: service)
+//    }
+//}
 
 extension HandyHomeView : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
@@ -627,50 +726,69 @@ extension HandyHomeView : SingleServiceDelegate {
     }
 }
 
-extension HandyHomeView : GMSMapViewDelegate {
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        if isShowUserLoc { return }
-        guard let _ = userLocation,
-        let previousLocation = previousLocation else {
-            self.userLocation = CLLocation(latitude: position.target.latitude,
-                                           longitude: position.target.longitude)
-            return
-        }
-        if previousLocation != CLLocation(latitude: position.target.latitude,
-                                          longitude: position.target.longitude) {
-            self.userLocation = CLLocation(latitude: position.target.latitude,
-                                           longitude: position.target.longitude)
-        }
-    }
-    
-    /*func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-        if gesture {
-            isUserInteractingWithMap = true
-        }
-    }
-    
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
-        if isUserInteractingWithMap {
-            isUserInteractingWithMap = false
-            //if isShowUserLoc { return }
-            guard let _ = userLocation,
-            let previousLocation = previousLocation else {
-                self.userLocation = CLLocation(latitude: position.target.latitude,
-                                               longitude: position.target.longitude)
-                return
-            }
-            if previousLocation != CLLocation(latitude: position.target.latitude,
-                                              longitude: position.target.longitude) {
-                self.userLocation = CLLocation(latitude: position.target.latitude,
-                                               longitude: position.target.longitude)
-            }
-        }
-    }*/
-}
+//extension HandyHomeView : GMSMapViewDelegate {
+//    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+//        if isShowUserLoc { return }
+//        guard let _ = userLocation,
+//        let previousLocation = previousLocation else {
+//            self.userLocation = CLLocation(latitude: position.target.latitude,
+//                                           longitude: position.target.longitude)
+//            return
+//        }
+//        if previousLocation != CLLocation(latitude: position.target.latitude,
+//                                          longitude: position.target.longitude) {
+//            self.userLocation = CLLocation(latitude: position.target.latitude,
+//                                           longitude: position.target.longitude)
+//        }
+//    }
+//
+//    /*func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+//        if gesture {
+//            isUserInteractingWithMap = true
+//        }
+//    }
+//
+//    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+//        if isUserInteractingWithMap {
+//            isUserInteractingWithMap = false
+//            //if isShowUserLoc { return }
+//            guard let _ = userLocation,
+//            let previousLocation = previousLocation else {
+//                self.userLocation = CLLocation(latitude: position.target.latitude,
+//                                               longitude: position.target.longitude)
+//                return
+//            }
+//            if previousLocation != CLLocation(latitude: position.target.latitude,
+//                                              longitude: position.target.longitude) {
+//                self.userLocation = CLLocation(latitude: position.target.latitude,
+//                                               longitude: position.target.longitude)
+//            }
+//        }
+//    }*/
+//}
 
 struct SelectedService {
     var service_id: Int
     var service_name: String
     var service_image: String
     var selectedCategories: [Category]
+}
+
+// MARK: - MKMapViewDelegate // <-- NEW EXTENSION
+extension HandyHomeView: MKMapViewDelegate {
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        // This is the equivalent of GMSMapView's `idleAt`
+        if isShowUserLoc { return }
+        
+        let newCenterCoordinate = mapView.centerCoordinate
+        let newLocation = CLLocation(latitude: newCenterCoordinate.latitude, longitude: newCenterCoordinate.longitude)
+        
+        // To avoid rapid updates, check if location changed significantly
+        if let previous = previousLocation, newLocation.distance(from: previous) < 10 {
+            return
+        }
+        
+        self.userLocation = newLocation
+    }
 }

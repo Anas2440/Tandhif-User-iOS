@@ -694,7 +694,7 @@ extension HandyProviderDetailView : UITableViewDataSource{
                         self.showHideBasket()
                         tableView.reloadData()
                     }else{
-                        let quantityBasedTypes: [PriceType] = [.fixed, .squareMeter]
+                        let quantityBasedTypes: [PriceType] = [.fixed, .squareMeter, .linearMeter]
 
                         if let exisitingItem = self.providerDetailVC.provider.bookedItems.first,
                            // Check if both the existing and new items are NOT quantity-based

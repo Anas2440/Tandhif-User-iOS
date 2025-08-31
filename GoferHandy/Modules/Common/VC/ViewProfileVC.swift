@@ -60,6 +60,20 @@ class ViewProfileVC: BaseViewController {
       nextViewController.modalTransitionStyle = .coverVertical
       self.present(nextViewController, animated:true, completion:nil)
     }
+    
+    func navigationToPaymentVC() {
+        let nextViewController = SelectPaymentMethodVC.initWithStory()
+        nextViewController.modalPresentationStyle = .overCurrentContext
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.present(nextViewController, animated:true, completion:nil)
+    }
+    
+    func navigationToEmergencyContactVC() {
+        let nextViewController = EmergencyContactViewController.initWithStory()
+        nextViewController.modalPresentationStyle = .overCurrentContext
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.present(nextViewController, animated:true, completion:nil)
+    }
   
     func onSaveProfileApiCall(params: [AnyHashable: Any]){
         self.accountViewModel.profileVCApiCall(parms: params){(result) in

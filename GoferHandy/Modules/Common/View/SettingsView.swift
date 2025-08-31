@@ -26,6 +26,7 @@ class SettingsView : BaseView {
     @IBOutlet weak var signoutBtn: PrimaryButton!
     @IBOutlet weak var lblArrowIcon: UILabel!
     @IBOutlet weak var deleteAccBtn: PrimaryButton!
+    @IBOutlet weak var supportBtn: PrimaryButton!
     //MARK:- Actions
     
     @IBAction func signoutAction(_ sender: Any) {
@@ -41,6 +42,11 @@ class SettingsView : BaseView {
             self.viewController.callLogoutAPI()
         }
     }
+    
+    @IBAction func supportAction(_ sender: Any) {
+        self.viewController.navigationToSupportVC()
+    }
+    
     @IBAction func deleteAccBtn(_ sender: Any) {
         self.viewController.deleteAccountVerification()
     }
@@ -85,6 +91,7 @@ class SettingsView : BaseView {
         self.lblSettings.text = LangCommon.settings
         self.signoutBtn.setTitle(LangCommon.signOut, for: .normal)
         self.deleteAccBtn.setTitle("Delete Account", for: .normal)
+        self.supportBtn.setTitle(LangCommon.support, for: .normal)
         let userCurrency = Constants().GETVALUE(keyname: "user_currency_symbol_org")
         let userCurrency1 = Constants().GETVALUE(keyname: "user_currency_org")
 
@@ -103,6 +110,7 @@ class SettingsView : BaseView {
         tblPayment.dataSource = self
         self.signoutBtn.isHidden = userDefaults.string(forKey: "user_id") == "10086"
         self.deleteAccBtn.isHidden = userDefaults.string(forKey: "user_id") == "10086"
+        self.supportBtn.isHidden = userDefaults.string(forKey: "user_id") == "10086"
     }
     
     func ThemeChange() {

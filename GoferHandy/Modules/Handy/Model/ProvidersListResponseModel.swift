@@ -414,6 +414,8 @@ class ServiceItem: Codable,Equatable {
 
         case .none:
             totalPrice = 0.0
+        case .linearMeter:
+            totalPrice = (Double(self.baseFare) ?? 0.0) * Double(selectedQuantity)
         }
         
         if totalPrice < 0 {

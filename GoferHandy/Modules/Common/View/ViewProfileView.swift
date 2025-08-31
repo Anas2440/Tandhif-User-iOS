@@ -53,6 +53,9 @@ class ViewProfileView: BaseView,
     @IBOutlet var leadingConstraints: [NSLayoutConstraint]!
     @IBOutlet var trailingConstraints: [NSLayoutConstraint]!
     
+    @IBOutlet weak var lblPayment: PrimaryButtonLabel!
+    @IBOutlet weak var lblEmergencyContact: PrimaryButtonLabel!
+    
     var arrTitle = [String]()
     var arrProfileValues = [String]()
     var arrDummyValues = [String]()
@@ -212,6 +215,8 @@ class ViewProfileView: BaseView,
             LangCommon.city.capitalized,
             LangCommon.postalCode.capitalized,
             LangCommon.state.capitalized]
+        lblPayment.text = LangCommon.paymentStatus.capitalized
+        lblEmergencyContact.text = LangCommon.emergencyContacts.capitalized
         
     }
     // Update the phone no
@@ -281,6 +286,15 @@ class ViewProfileView: BaseView,
             }
         }
     }
+    
+    @IBAction func btnPaymentAction(_ sender: UIButton) {
+        self.viewController.navigationToPaymentVC()
+    }
+    
+    @IBAction func btnEmergencyAction(_ sender: UIButton) {
+        self.viewController.navigationToEmergencyContactVC()
+    }
+    
     @IBAction func changeImgBtnAction(_ sender: Any) {
         self.imageChoose()
     }
@@ -718,6 +732,7 @@ class ViewProfileView: BaseView,
         self.emailTF.font = AppTheme.Fontlight(size: 14).font
         self.updateBtn.customColorsUpdate()
         self.viewController.commonAlert.ThemeChange()
+        self.lblPayment
     }
     
     func toOpenGallery() {        // To open gallery

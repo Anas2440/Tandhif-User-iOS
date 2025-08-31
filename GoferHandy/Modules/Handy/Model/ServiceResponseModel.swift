@@ -7,27 +7,34 @@
 //
 
 import Foundation
+
 // MARK: - ServiceResponse
 class ServiceResponse: Codable {
     let statusCode: String
-    let statusMessage : String
+    let statusMessage: String
     let services: [Service]
+    let previousBooked: [Service] // <-- 1. ADD THIS PROPERTY
 
     enum CodingKeys: String, CodingKey {
         case statusCode = "status_code"
         case statusMessage = "status_message"
         case services
+        case previousBooked = "previous_booked" // <-- 2. ADD THIS CODING KEY
     }
 
-    
-    required init(from decoder : Decoder) throws{
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.statusCode = container.safeDecodeValue(forKey: .statusCode)
         self.statusMessage = container.safeDecodeValue(forKey: .statusMessage)
+        
         let services = try container.decodeIfPresent([Service].self, forKey: .services)
         self.services = services ?? []
+        
+        // --- 3. ADD THIS DECODING LOGIC ---
+        let previousBookedServices = try container.decodeIfPresent([Service].self, forKey: .previousBooked)
+        self.previousBooked = previousBookedServices ?? []
+        // --- END OF ADDED BLOCK ---
     }
-   
 }
 
 // MARK: - Service

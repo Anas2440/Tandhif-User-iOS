@@ -75,6 +75,13 @@ class SettingsVC : BaseViewController,
             self.settingsView.imgUserThumb.sd_setImage(with: NSURL(string: strUserImg)! as URL,
                                                        placeholderImage:UIImage(named:"user_dummy"))
     }
+    
+    func navigationToSupportVC() {
+        let nextViewController = SupportVC.initWithStory()
+        nextViewController.modalPresentationStyle = .overCurrentContext
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.navigationController?.pushViewController(nextViewController, animated:true)
+    }
 
     override
     func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {

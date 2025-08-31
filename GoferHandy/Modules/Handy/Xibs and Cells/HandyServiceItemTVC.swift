@@ -105,7 +105,7 @@ class HandyServiceItemTVC: GroupTableViewCell {
             self.itemCountTF.text = LangCommon.minFare.capitalized
 
         // ✅ Combined .fixed and .squareMeter since they have the same logic
-        case .fixed, .squareMeter:
+        case .fixed, .squareMeter, .linearMeter:
             // Show the quantity stepper only if the user can select more than one item.
             self.addRemoveItemStack.isHidden = (Double(item.maximumQuantity) ?? 0) <= 1
 

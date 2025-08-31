@@ -56,9 +56,9 @@ class SplashView: BaseView {
         self.splashVC = baseVC as? SplashVC
         self.bgIV.image = UIImage(named: "splash_bg")
         self.appLogoIV.isHidden = true
-        DispatchQueue.main.async {
-            self.playSplashVideo()
-        }
+//        DispatchQueue.main.async {
+//            self.playSplashVideo()
+//        }
         if self.languageLoaded { //language is ready
             DispatchQueue.main.async {
                 self.initView()

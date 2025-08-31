@@ -262,6 +262,7 @@ enum PriceType: String, Codable {
     case hourly = "Hourly"
     case distance = "Distance"
     case squareMeter = "Square Meter"
+    case linearMeter = "Linear Meter"
     case none
 
     init(from decoder: Decoder) throws {
