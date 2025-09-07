@@ -1,6 +1,0 @@
-framework module Pods_GoferHandyTests {
-  umbrella header "Pods-GoferHandyTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

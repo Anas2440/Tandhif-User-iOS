@@ -1,6 +1,0 @@
-framework module ARCarMovement {
-  umbrella header "ARCarMovement-umbrella.h"
-
-  export *
-  module * { export * }
-}
