@@ -19,6 +19,7 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0tU-Nw-ZFl">
                                 <rect key="frame" x="71.666666666666686" y="301" width="250" height="250"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" secondItem="0tU-Nw-ZFl" secondAttribute="height" multiplier="1:1" id="7jc-JP-WfG"/>
                                     <constraint firstAttribute="height" constant="250" id="pIQ-tO-ELJ"/>
                                     <constraint firstAttribute="width" secondItem="0tU-Nw-ZFl" secondAttribute="height" multiplier="1:1" id="v2V-EZ-qVN"/>
                                 </constraints>
@@ -26,9 +27,8 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.24313727020000001" green="0.5411764979" blue="0.63137257099999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="0tU-Nw-ZFl" firstAttribute="width" secondItem="0tU-Nw-ZFl" secondAttribute="height" multiplier="1:1" id="7jc-JP-WfG"/>
                             <constraint firstItem="0tU-Nw-ZFl" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="9lm-tx-Bct"/>
                             <constraint firstItem="0tU-Nw-ZFl" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="EHy-96-BiC"/>
                         </constraints>

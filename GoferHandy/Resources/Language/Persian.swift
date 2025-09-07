@@ -155,7 +155,7 @@ class Persian: LanguageProtocol {
     lazy var off : String =  { return "OFF"}()
     lazy var freeTripUpto : String =  { return "سفر رایگان به"}()
     lazy var from : String =  { return "از جانب"}()
-    lazy var promotions : String =  { return "تبلیغات"}()
+    lazy var promotions : String =  { return "حمایت مالی"}()
     lazy var paymentMethod : String =  { return "روش های پرداخت"}()
     lazy var useWallet : String =  { return "Wallet استفاده"}()
     lazy var wallet : String =  { return "کیف پول"}()

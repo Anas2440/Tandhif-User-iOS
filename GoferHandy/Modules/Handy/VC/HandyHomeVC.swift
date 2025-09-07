@@ -349,7 +349,7 @@ class HandyHomeVC: BaseViewController {
         let param: JSON = isCacheNeeded ? ["cache": 1] : [:]
         self.handyHomeView.noServiceFoundLbl.adjustsFontSizeToFitWidth = true
         self.handyHomeView.noServiceFoundLbl.isHidden = true
-        self.handyHomeView.chooseStack.isHidden = false
+//        self.handyHomeView.chooseStack.isHidden = false
 
         self.handyBookingVM?.wsToGetServiceListDetails(param: param, { [weak self] (result) in
             DispatchQueue.main.async {
@@ -395,14 +395,14 @@ class HandyHomeVC: BaseViewController {
                         
                         self.handyHomeView.servicesCollection.isHidden = false
                         self.handyHomeView.noServiceFoundLbl.isHidden = true
-                        self.handyHomeView.chooseStack.isHidden = false
+//                        self.handyHomeView.chooseStack.isHidden = false
                         
                     } else {
                         // Handle case where no services are found.
                         self.handyHomeView.services.removeAll()
                         self.handyHomeView.servicesCollection.isHidden = true
                         self.handyHomeView.noServiceFoundLbl.isHidden = false
-                        self.handyHomeView.chooseStack.isHidden = true
+//                        self.handyHomeView.chooseStack.isHidden = true
                         self.handyHomeView.noServiceFoundLbl.text = response.statusMessage
                     }
                     
@@ -550,8 +550,9 @@ class HandyHomeVC: BaseViewController {
         selectedServicesCart.forEach({ service in
             count += service.selectedCategories.count
         })
-        self.handyHomeView.btnSelectedServices.isEnabled = count != 0
-        self.handyHomeView.btnSelectedServices.setTitle("Selected Services \(count == 0 ? "" : "\(count)")", for: .normal)
+        self.handyHomeView.btnSelectedServices.superview?.isHidden = count == 0
+        self.handyHomeView.lblSelectedServicesCnt.text = count.description
+//        self.handyHomeView.btnSelectedServices.setTitle("Selected Services \(count == 0 ? "" : "\(count)")", for: .normal)
     }
 }
 //MARK:- HandySetLocationDelegate

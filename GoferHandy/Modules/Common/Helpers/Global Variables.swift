@@ -93,7 +93,7 @@ let infoPlist = PlistReader<InfoPlistKeys>()
  - note : used in project's All source files (eg: images)
  - warning : Don't Forget to Add Your URL here
  */
-let APIBaseUrl : String = "https://tandhif.fr/"//(infoPlist?.value(for: .App_URL) ?? "").replacingOccurrences(of: "\\", with: "")
+let APIBaseUrl : String = "https://admin.tandhif.fr/api/"//(infoPlist?.value(for: .App_URL) ?? "").replacingOccurrences(of: "\\", with: "")
 /**
  Global_UserType is a Global Variable. Get from info Plist, Change in Configuration File
  - note : used in project's All source files (eg: images)

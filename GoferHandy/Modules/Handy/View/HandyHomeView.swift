@@ -83,7 +83,7 @@ class HandyHomeView: BaseView {
     @IBOutlet weak var booklaterIndicaterIV: UIImageView!
     @IBOutlet weak var headerView : HeaderView!
     @IBOutlet weak var topCurvedView : TopCurvedView!
-    @IBOutlet weak var youAreInLbl : SecondaryRegularLabel!
+//    @IBOutlet weak var youAreInLbl : SecondaryRegularLabel!
     @IBOutlet weak var locationLbl : SecondaryHeaderLabel!
     @IBOutlet weak var serviceSearchView : commonTextField!
     @IBOutlet weak var searchIV: SecondaryTintImageView!
@@ -99,14 +99,14 @@ class HandyHomeView: BaseView {
     @IBOutlet weak var bookLaterBGViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var noServiceFoundLbl: SecondaryLargeLabel!
-    @IBOutlet weak var bookWashPostion : UIStackView!
-    @IBOutlet weak var chooseStack : UIStackView!
+//    @IBOutlet weak var bookWashPostion : UIStackView!
+//    @IBOutlet weak var chooseStack : UIStackView!
     @IBOutlet weak var mapHolderView: UIView!
-    @IBOutlet weak var chooseYourWashLbl: InactiveRegularLabel!
+//    @IBOutlet weak var chooseYourWashLbl: InactiveRegularLabel!
     @IBOutlet weak var showAllBtn: TransperentButton!
     @IBOutlet weak var doneBtn: PrimaryButton!
     @IBOutlet weak var pinIV: UIImageView!
-    @IBOutlet weak var bookAWassLbl: InactiveRegularLabel!
+//    @IBOutlet weak var bookAWassLbl: InactiveRegularLabel!
     
     @IBOutlet weak var orderProgressView: UIView!
     @IBOutlet weak var lblOrderStatus: UILabel!
@@ -115,6 +115,7 @@ class HandyHomeView: BaseView {
     
     //MARK: --- button for selectedService
     @IBOutlet weak var btnSelectedServices: UIButton!
+    @IBOutlet weak var lblSelectedServicesCnt: UILabel!
     
     @IBOutlet weak var previousBookedCollectionView: UICollectionView!
     @IBOutlet weak var previousBookedSectionView: UIView!
@@ -190,21 +191,22 @@ class HandyHomeView: BaseView {
         
         // A) SAFELY activate/deactivate the constraint using optional chaining (?).
         //    This prevents a crash if the outlet is ever disconnected again.
-        if let heightCons = self.heightConstaint { heightCons.isActive = false }
+//        if let heightCons = self.heightConstaint { heightCons.isActive = false }
         self.servicesCollection.alwaysBounceVertical = self.currentState == .hide
         self.servicesCollection.alwaysBounceHorizontal = self.currentState == .showall
         if self.currentState == .hide {
-            self.height.isActive = false
+            let height : CGFloat = self.servicesCollection.superview?.superview?.bounds.height ?? 170.0
+            self.heightConstaint.constant = height - 30
         } else {
-            self.height = self.servicesCollection.heightAnchor.constraint(equalToConstant: 170.0)
-            self.height.isActive = true
+//            self.height = self.servicesCollection.heightAnchor.constraint(equalToConstant: 170.0)
+            self.heightConstaint.constant = 170.0
         }
         self.previousBookedSectionView.isHidden = (self.currentState == .hide)
         self.mapHolderView.superview?.isHidden = (self.currentState == .hide)
         
         // B) Animate the hiding/showing of other views
-        self.bookWashPostion.isHidden = (self.currentState == .hide)
-        self.serviceBarView.superview?.isHidden = (self.currentState == .hide)
+//        self.bookWashPostion.isHidden = (self.currentState == .hide)
+        self.serviceBarView.isHidden = (self.currentState == .hide)
         
         // C) Tell the collection view to use the new layout
         self.servicesCollection.setCollectionViewLayout(newLayout, animated: false)
@@ -328,7 +330,7 @@ class HandyHomeView: BaseView {
         //            self.height.isActive = true
         //        }
         self.mapHolderView.superview?.isHidden = self.currentState == .hide
-        self.bookWashPostion.isHidden = self.currentState == .hide
+//        self.bookWashPostion.isHidden = self.currentState == .hide
         let size = self.servicesCollection.frame.width * 0.25
         let cellSize = CGSize(width: size, height: size * 1.4)
         let layout = UICollectionViewFlowLayout()
@@ -339,7 +341,8 @@ class HandyHomeView: BaseView {
         layout.minimumInteritemSpacing = 1.0
         self.servicesCollection.setCollectionViewLayout(layout, animated: true)
         self.servicesCollection.setNeedsLayout()
-        self.servicesCollection.layoutIfNeeded()
+        self.previousBookedCollectionView.layoutIfNeeded()
+//        self.servicesCollection.layoutIfNeeded()
         DispatchQueue.main.async {
             self.servicesCollection.reloadData()
         }
@@ -445,7 +448,7 @@ class HandyHomeView: BaseView {
         self.menuBtn.backgroundColor = .PrimaryColor
         self.topCurvedView.customColorsUpdate()
         self.headerView.customColorsUpdate()
-        self.youAreInLbl.customColorsUpdate()
+//        self.youAreInLbl.customColorsUpdate()
         self.locationLbl.customColorsUpdate()
         self.serviceSearchView.setTextAlignment()
         self.serviceBarView.customColorsUpdate()
@@ -453,10 +456,12 @@ class HandyHomeView: BaseView {
         self.addressDropDownIV.customColorsUpdate()
         self.serviceSearchView.customColorsUpdate()
         self.servicesCollection.backgroundColor = self.isDarkStyle ? .DarkModeBackground : .SecondaryColor
+        self.previousBookedCollectionView.backgroundColor = self.isDarkStyle ? .DarkModeBackground : .SecondaryColor
         self.serviceSearchView.backgroundColor = self.isDarkStyle ? .DarkModeBackground : .SecondaryColor
         self.bookLaterBGView.customColorsUpdate()
         self.booklaterIndicaterIV.backgroundColor = .PrimaryColor
         self.servicesCollection.reloadData()
+        self.previousBookedCollectionView.reloadData()
         //        if let map = map { self.onChangeMapStyle(map: map) }
         self.doneBtn.customColorsUpdate()
     }
@@ -473,7 +478,7 @@ class HandyHomeView: BaseView {
                                          action: #selector(textChange(_:)),
                                          for: .editingChanged)
         self.serviceBarView.cornerRadius = 10
-        self.serviceBarView.elevate(2)
+        self.serviceBarView.elevate(5)
         //        self.servicesCollection.register(UINib(nibName: "HomeServicesHeader", bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier:"HomeServicesHeader")
         self.servicesCollection.register(UINib(nibName: "HandyHomeServiceCVC",
                                                bundle: nil),
@@ -491,7 +496,7 @@ class HandyHomeView: BaseView {
         self.bookNowOrBookLaterBtn.setTitle(" \(LangHandy.bookLater) ", for: .normal)
         self.bookNowOrBookLaterBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         self.bookingDateAndTimeLbl.adjustsFontSizeToFitWidth = true
-        self.refreshThemeColor()
+//        self.refreshThemeColor()
         self.setRefresher()
         guard let vc = self.handyHomeVC else { return }
         self.serviceBarView.isHidden = vc.isSingleCategory || vc.selectCatagoryID != nil
@@ -507,10 +512,10 @@ class HandyHomeView: BaseView {
     }
     
     func initLanguage() {
-        self.youAreInLbl.text = LangCommon.youAreIn.capitalized
-        self.chooseYourWashLbl.text = LangCommon.choostYourWash.isEmpty ? "Choose Your Wash" : LangCommon.choostYourWash
+//        self.youAreInLbl.text = LangCommon.youAreIn.capitalized
+//        self.chooseYourWashLbl.text = LangCommon.choostYourWash.isEmpty ? "Choose Your Wash" : LangCommon.choostYourWash
         self.showAllBtn.setTitle(self.currentState.displayText, for: .normal)
-        self.bookAWassLbl.text = LangCommon.bookAWashAtPosition.isEmpty ? "Book a Wash at Position" : LangCommon.bookAWashAtPosition
+//        self.bookAWassLbl.text = LangCommon.bookAWashAtPosition.isEmpty ? "Book a Wash at Position" : LangCommon.bookAWashAtPosition
         self.doneBtn.setTitle(LangCommon.done.capitalized, for: .normal)
     }
     
@@ -600,7 +605,7 @@ extension HandyHomeView : UICollectionViewDataSource{
         } else { // This is for servicesCollection
             let count = self.relatedWords.count
             let isNodataNeed = count == 0 && !self.handyHomeVC.Refresher.isRefreshing && self.noServiceFoundLbl.isHidden
-            self.chooseStack.isHidden = !self.noServiceFoundLbl.isHidden || count == 0
+//            self.chooseStack.isHidden = !self.noServiceFoundLbl.isHidden || count == 0
             if isNodataNeed && (isFilterAvailable || !self.isLoading)  {
                 let placeholderLbl = PrimaryColoredHeaderLabel()
                 placeholderLbl.textAlignment = .center

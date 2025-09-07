@@ -140,7 +140,7 @@ class English: LanguageProtocol {
     lazy var off : String =  { return "OFF"}()
     lazy var freeTripUpto : String =  { return "Free trip up to"}()
     lazy var from : String =  { return "from"}()
-    lazy var promotions : String =  { return "Promotions"}()
+    lazy var promotions : String =  { return "Sponsorship"}()
     lazy var paymentMethod : String =  { return "Payment Methods"}()
     lazy var useWallet : String =  { return "USE WALLET"}()
     lazy var wallet : String =  { return "Wallet"}()

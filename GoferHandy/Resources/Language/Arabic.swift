@@ -155,7 +155,7 @@ class Arabic : LanguageProtocol {
     lazy var off : String =  { return "إيقاف"}()
     lazy var freeTripUpto : String =  { return "رحلة مجانية تصل إلى"}()
     lazy var from : String =  { return "من عند"}()
-    lazy var promotions : String =  { return "الترقيات"}()
+    lazy var promotions : String =  { return "الرعاية"}()
     lazy var paymentMethod : String =  { return "طرق الدفع"}()
     lazy var useWallet : String =  { return "استخدام محفظة"}()
     lazy var wallet : String =  { return "محفظة نقود"}()

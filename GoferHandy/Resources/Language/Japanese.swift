@@ -155,7 +155,7 @@ class Japanese: LanguageProtocol {
     lazy var off : String =  { return "オフ"}()
     lazy var freeTripUpto : String =  { return "までの無料の旅"}()
     lazy var from : String =  { return "から"}()
-    lazy var promotions : String =  { return "プロモーション"}()
+    lazy var promotions : String =  { return "スポンサーシップ"}()
     lazy var paymentMethod : String =  { return "お支払い方法"}()
     lazy var useWallet : String =  { return "USE WALLET"}()
     lazy var wallet : String =  { return "財布"}()

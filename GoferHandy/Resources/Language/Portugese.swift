@@ -150,7 +150,7 @@ class Portugal: LanguageProtocol {
     lazy var off : String =  { return "FORA"}()
     lazy var freeTripUpto : String =  { return "viagem gratuita até"}()
     lazy var from : String =  { return "a partir de"}()
-    lazy var promotions : String =  { return "promoções"}()
+    lazy var promotions : String =  { return "Patrocínio"}()
     lazy var paymentMethod : String =  { return "Métodos de Pagamento"}()
     lazy var useWallet : String =  { return "CARTEIRA USE"}()
     lazy var wallet : String =  { return "Carteira"}()

@@ -18,6 +18,7 @@ import FirebaseMessaging
 import CoreData
 import BackgroundTasks
 import StripeApplePay
+import IQKeyboardManagerSwift
  
 
 @UIApplicationMain
@@ -62,6 +63,9 @@ extension AppDelegate : UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         //UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+        
+        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardManager.shared.enableAutoToolbar = true 
         
         FirebaseApp.configure()
         StripeAPI.defaultPublishableKey = "pk_test_51MtSMPEEorQv8b5cZZRVeocpafOH7wpZlu5ob86RsQIadBi57fbeB0k7RGJhXpx31nTiYR5A6oXKKF4I7wTzIMoX00oV1xD140"

@@ -3661,7 +3661,7 @@ class GoferDeliveryAll: Codable {
         self.promoCodeEnterItAndSaveOnYourOrder = "promo Code Enter It And Save On Your Order".capitalized
         self.enterPromoCode = "enter Promo Code".capitalized
         self.apply = "apply".capitalized
-        self.promotions = "promotions".capitalized
+        self.promotions = "sponsorship".capitalized
         self.freeUpto = "free Upto".capitalized
         self.on = "on".capitalized
         self.expiredOn = "expired On".capitalized

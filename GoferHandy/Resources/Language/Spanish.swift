@@ -154,7 +154,7 @@ class Spanish: LanguageProtocol{
     lazy var off : String =  { return "APAGADO"}()
     lazy var freeTripUpto : String =  { return "viaje gratis hasta"}()
     lazy var from : String =  { return "desde"}()
-    lazy var promotions : String =  { return "promociones"}()
+    lazy var promotions : String =  { return "Patrocinio"}()
     lazy var paymentMethod : String =  { return "Métodos de pago"}()
     lazy var useWallet : String =  { return "CARTERA DE USO"}()
     lazy var wallet : String =  { return "Billetera"}()

@@ -32,11 +32,11 @@ final class ConnectionHandler : NSObject {
     func getRequest(for api : APIEnums,
                     params : Parameters) -> APIResponseProtocol{
         if api.method == .get {
-            return self.getRequest(forAPI: "https://tandhif.fr/api/"/*APIUrl*/ + api.rawValue,
+            return self.getRequest(forAPI: "https://admin.tandhif.fr/api/"/*APIUrl*/ + api.rawValue,
                                    params: params,
                                    CacheAttribute: api.cacheAttribute ? api : .none)
         } else {
-            return self.postRequest(forAPI: "https://tandhif.fr/api/"/*APIUrl*/ + api.rawValue,
+            return self.postRequest(forAPI: "https://admin.tandhif.fr/api/"/*APIUrl*/ + api.rawValue,
                                     params: params)
         }
     }

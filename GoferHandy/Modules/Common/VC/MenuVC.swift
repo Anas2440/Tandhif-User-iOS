@@ -181,6 +181,7 @@ class MenuVC: BaseViewController, PromoValuePassedProtocol {
         let promoView = ProfilePromoCodeViewController.initWithStory(self)
         promoView.isFromMenu = true
         let promoItem = MenuItemModel(withTitle: LangCommon.promotions , VC: promoView)
+        print("Promotion text is right now: \(promoItem.title)")
         
         // Handy Splitup Start
         // Delivery Splitup Start
@@ -211,7 +212,7 @@ class MenuVC: BaseViewController, PromoValuePassedProtocol {
             let contactAdmin = MenuItemModel(withTitle: LangCommon.manualBooking,
                                              image: "supportIcon",
                                              VC: nil)
-            handyItems.append(contactAdmin)
+//            handyItems.append(contactAdmin)
             // Handy Splitup Start
         }
         // Handy Splitup End        handyItems.append(settingItem)
